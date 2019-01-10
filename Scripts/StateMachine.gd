@@ -1,7 +1,8 @@
 extends Node
 
 onready var state_map = {
-	'start' : $StartState
+	'start' : $StartState,
+	'play' : $PlayState
 }
 
 var current_state = null

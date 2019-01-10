@@ -16,7 +16,8 @@ config/icon="res://Assets/Graphics/breakout.png"
 
 [autoload]
 
-CONSTANTS="*res://Scripts/constants.gd"
+CONSTANTS="*res://Scripts/utils/constants.gd"
+TEXTURE_ATLAS="*res://Scripts/utils/texture_atlas.gd"
 
 [display]
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/background.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/states/StartState.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/StartScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/states/PlayState.gd" type="Script" id=5]
 
 [node name="Game" type="Node"]
 
@@ -21,5 +22,11 @@ _sections_unfolded = [ "Offset", "Transform" ]
 script = ExtResource( 3 )
 
 [node name="StartScreen" parent="StartState" index="0" instance=ExtResource( 4 )]
+
+visible = false
+
+[node name="PlayState" type="Node" parent="." index="2"]
+
+script = ExtResource( 5 )
 
 

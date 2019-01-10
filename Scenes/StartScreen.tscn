@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/StartScreen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/large_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -33,7 +34,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[node name="StartScreen" type="Control"]
+[node name="StartScreen" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -160,8 +161,21 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
+[node name="ConfirmSound" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 5 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [connection signal="focus_entered" from="Menu/Start" to="." method="_on_Start_focus_entered"]
 
+[connection signal="pressed" from="Menu/Start" to="." method="_on_Start_pressed"]
+
 [connection signal="focus_entered" from="Menu/High Scores" to="." method="_on_High_Scores_focus_entered"]
+
+[connection signal="pressed" from="Menu/High Scores" to="." method="_on_High_Scores_pressed"]
 
 

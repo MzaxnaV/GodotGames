@@ -49,4 +49,4 @@ func reset():
 	position.x = CONSTANTS.VIRTUAL_WIDTH / 2 - 2
 	position.y = CONSTANTS.VIRTUAL_HEIGHT / 2 - 2
 
-	velocity = Vector2(rand_range(-200, 200), rand_range(-50, -60))
+	velocity = Vector2(rand_range(-200, 200), rand_range(-50, -60)).normalized() * 200

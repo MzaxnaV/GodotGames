@@ -1,13 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/PlayScreen.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Paddle.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Ball.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/Level.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sounds/brick-hit-2.wav" type="AudioStream" id=6]
-[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=7]
-[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -19,7 +18,7 @@ extents = Vector2( 32, 8 )
 custom_solver_bias = 0.0
 radius = 4.0
 
-[node name="PlayScreen" type="Control"]
+[node name="PlayScreen" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -33,9 +32,13 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 1 )
 
-[node name="Paddle" type="Area2D" parent="." index="0"]
+[node name="Level" type="Node" parent="." index="0"]
+
+script = ExtResource( 1 )
+posbyColour = [ Vector2( 0, 0 ), Vector2( 128, 0 ), Vector2( 64, 16 ), Vector2( 0, 32 ), Vector2( 128, 32 ) ]
+
+[node name="Paddle" type="Area2D" parent="Level" index="0"]
 
 editor/display_folded = true
 position = Vector2( 217, 211 )
@@ -53,19 +56,19 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="paddle" type="Sprite" parent="Paddle" index="0"]
+[node name="paddle" type="Sprite" parent="Level/Paddle" index="0"]
 
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 32, 64, 64, 16 )
 _sections_unfolded = [ "Region" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddle" index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Paddle" index="1"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Ball" type="Area2D" parent="." index="1"]
+[node name="Ball" type="Area2D" parent="Level" index="1"]
 
 editor/display_folded = true
 input_pickable = true
@@ -82,23 +85,27 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="ball" type="Sprite" parent="Ball" index="0"]
+[node name="ball" type="Sprite" parent="Level/Ball" index="0"]
 
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 96, 48, 8, 8 )
 _sections_unfolded = [ "Region" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ball" index="1"]
 
 shape = SubResource( 2 )
 
-[node name="Level" type="Node" parent="." index="2"]
+[node name="PaddleHitSound" type="AudioStreamPlayer" parent="Level" index="2"]
 
-script = ExtResource( 5 )
-posbyColour = [ Vector2( 0, 0 ), Vector2( 128, 0 ), Vector2( 64, 16 ), Vector2( 0, 32 ), Vector2( 128, 32 ) ]
+stream = ExtResource( 5 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
-[node name="BrickHitSound" type="AudioStreamPlayer" parent="Level" index="0"]
+[node name="BrickHitSound" type="AudioStreamPlayer" parent="Level" index="3"]
 
 stream = ExtResource( 6 )
 volume_db = -30.0
@@ -107,7 +114,7 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="PaddleHitSound" type="AudioStreamPlayer" parent="." index="3"]
+[node name="WallHitSound" type="AudioStreamPlayer" parent="Level" index="4"]
 
 stream = ExtResource( 7 )
 volume_db = -30.0
@@ -116,22 +123,13 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="WallHitSound" type="AudioStreamPlayer" parent="." index="4"]
-
-stream = ExtResource( 8 )
-volume_db = -30.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="breakout" type="Sprite" parent="." index="5"]
+[node name="breakout" type="Sprite" parent="." index="1"]
 
 position = Vector2( 0, 244 )
 texture = ExtResource( 3 )
 centered = false
 _sections_unfolded = [ "Transform" ]
 
-[connection signal="area_entered" from="Paddle" to="." method="_on_Paddle_area_entered"]
+[connection signal="area_entered" from="Level/Paddle" to="Level" method="_on_Paddle_area_entered"]
 
 

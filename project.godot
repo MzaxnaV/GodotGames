@@ -23,6 +23,12 @@ CONSTANTS="*res://Scripts/utils/constants.gd"
 window/size/width=1280
 window/size/height=720
 
+[layer_names]
+
+2d_physics/layer_1="ball"
+2d_physics/layer_2="brick"
+2d_physics/layer_3="paddle"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scripts/FPS.gd" type="Script" id=4]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="." index="0"]
 
@@ -116,7 +116,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 3 )
-text = "v0.2"
+text = "v0.3"
 align = 1
 valign = 1
 percent_visible = 1.0

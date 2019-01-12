@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	$Level.generate_map()
+
 func _physics_process(delta):
 	if $Ball.boundBall():
 		$WallHitSound.play()
@@ -11,6 +14,6 @@ func _process(delta):
 		$Paddle.position.x += CONSTANTS.PADDLE_SPEED * delta
 
 func _on_Paddle_area_entered(area):
-	print($Ball.position - $Paddle.position)
 	$Ball.velocity.y = -$Ball.velocity.y
+	$Ball.position.y = $Paddle.position.y - 10
 	$PaddleHitSound.play()

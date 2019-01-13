@@ -1,13 +1,16 @@
 extends "res://Scripts/states/BaseState.gd"
 
-var PlayScreen = preload("res://Scenes/PlayScreen.tscn")
+var Level = preload("res://Scenes/Level.tscn")
 
 func enter(params):
-	add_child(PlayScreen.instance())
+	var level = Level.instance()
+	level.connect("game_over", self, "_on_Level_game_over")
+	add_child(level)
 
 func exit():
+	var score = get_child(0).score
 	get_child(0).queue_free()
+	return { 'score': str(score) }
 
-func handle_event(event):
-	if event.is_action_pressed("ui_cancel"):
-		get_parent().change_state('start')
+func _on_Level_game_over():
+	get_parent().change_state('gameover')

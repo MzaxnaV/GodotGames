@@ -2,7 +2,9 @@ extends Node
 
 onready var state_map = {
 	'start' : $StartState,
-	'play' : $PlayState
+	'play' : $PlayState,
+	'serve' : $ServeState,
+	'gameover' : $GameOverState
 }
 
 var current_state = null

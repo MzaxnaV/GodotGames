@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/background.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/StartScreen.gd" type="Script" id=9]
 [ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=10]
 [ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=12]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -40,9 +41,11 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" index="0"]
 
+pause_mode = 2
 script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="background" type="Sprite" parent="." index="0"]
 
@@ -53,8 +56,9 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="GameOverState" type="Node" parent="." index="1"]
 
-editor/display_folded = true
+pause_mode = 1
 script = ExtResource( 3 )
+_sections_unfolded = [ "Pause" ]
 
 [node name="GameOverScreen" type="Control" parent="GameOverState" index="0"]
 
@@ -64,7 +68,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 434.0
+margin_right = 432.0
 margin_bottom = 243.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -72,7 +76,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Grow Direction" ]
+_sections_unfolded = [ "Grow Direction", "Margin" ]
 
 [node name="GameOverText" type="Label" parent="GameOverState/GameOverScreen" index="0"]
 
@@ -149,16 +153,64 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="PlayState" type="Node" parent="." index="2"]
 
+pause_mode = 2
 script = ExtResource( 6 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="PlayScreen" type="Control" parent="PlayState" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 432.0
+margin_bottom = 243.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin", "Pause" ]
+
+[node name="PauseText" type="Label" parent="PlayState/PlayScreen" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -16.0
+margin_right = 60.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+text = "Paused"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="ServeState" type="Node" parent="." index="3"]
 
+pause_mode = 1
 script = ExtResource( 7 )
-posbyColour = [ Vector2( 0, 0 ), Vector2( 128, 0 ), Vector2( 64, 16 ), Vector2( 0, 32 ), Vector2( 128, 32 ) ]
+_sections_unfolded = [ "Pause" ]
 
 [node name="StartState" type="Node" parent="." index="4"]
 
+pause_mode = 1
 script = ExtResource( 8 )
+_sections_unfolded = [ "Pause" ]
+posbyColour = [ Vector2( 0, 0 ), Vector2( 128, 0 ), Vector2( 64, 16 ), Vector2( 0, 32 ), Vector2( 128, 32 ) ]
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
 
@@ -168,7 +220,7 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 1.0
-margin_right = 435.0
+margin_right = 433.0
 margin_bottom = 243.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -297,6 +349,13 @@ pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
+
+[node name="breakout" type="Sprite" parent="." index="5"]
+
+position = Vector2( 0, 245 )
+texture = ExtResource( 12 )
+centered = false
+_sections_unfolded = [ "Transform" ]
 
 [connection signal="focus_entered" from="StartState/StartScreen/Menu/Start" to="StartState/StartScreen" method="_on_Start_focus_entered"]
 

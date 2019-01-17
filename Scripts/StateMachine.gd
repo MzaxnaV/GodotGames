@@ -13,12 +13,6 @@ var params = null
 func _ready():
 	change_state('start')
 
-func change_state(stateName):
-	if (current_state):
-		params = current_state.exit()
-	current_state = state_map[stateName]
-	current_state.enter(params)
-
 func _physics_process(delta):
 	current_state.update_physics(delta)
 
@@ -27,3 +21,10 @@ func _process(delta):
 
 func _input(event):
 	current_state.handle_event(event)
+
+func change_state(state_name):
+	if (current_state):
+		params = current_state.exit()
+	print("Entering state: ", state_name)
+	current_state = state_map[state_name]
+	current_state.enter(params)

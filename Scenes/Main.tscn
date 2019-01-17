@@ -5,7 +5,10 @@
 [ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scripts/FPS.gd" type="Script" id=4]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
+
+pause_mode = 2
+_sections_unfolded = [ "Pause" ]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="." index="0"]
 
@@ -62,12 +65,11 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="Control" type="Control" parent="ViewportContainer/Viewport/DEBUG_HUD" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 434.0
+margin_right = 432.0
 margin_bottom = 243.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -117,7 +119,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 3 )
-text = "v0.4"
+text = "v0.5"
 align = 1
 valign = 1
 percent_visible = 1.0

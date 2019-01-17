@@ -3,7 +3,7 @@ extends "res://Scripts/states/BaseState.gd"
 var score = 0
 
 func enter(params):
-	$GameOverScreen/ScoreText.text = "Final Score: " + params['score']
+	$GameOverScreen/ScoreText.text = "Final Score: " + str(params.score)
 	$GameOverScreen.show()
 
 func exit():

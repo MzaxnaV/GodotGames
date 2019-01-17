@@ -1,6 +1,8 @@
-extends Sprite
+extends Area2D
 
-func init(brick_tex_pos, x, y):
-	set_region_rect(Rect2(brick_tex_pos.x, brick_tex_pos.y, 32, 16))
-	position.x = x
-	position.y = y
+var skin = null
+
+func init(brick_pos, brick_region, brick_skin):
+	position = brick_pos
+	$brick.region_rect = brick_region
+	skin = brick_skin

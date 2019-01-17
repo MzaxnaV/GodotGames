@@ -1,11 +1,12 @@
 extends Area2D
 
-var skin = 1
+var skin = null
 var size = 2
 
 var speed = 0
 
-func _ready():
+func init(paddle_skin):
+	skin = paddle_skin
 	change_paddle()
 
 func _input(event):

@@ -1,16 +1,22 @@
 extends "res://Scripts/states/BaseState.gd"
 
-var Level = preload("res://Scenes/Level.tscn")
+var level = null
 
 func enter(params):
-	var level = Level.instance()
-	level.connect("game_over", self, "_on_Level_game_over")
+	level = params
+	level.set_play(true)
 	add_child(level)
 
 func exit():
-	var score = get_child(0).score
-	get_child(0).queue_free()
-	return { 'score': str(score) }
+	remove_child(level)
+	return level
 
-func _on_Level_game_over():
-	get_parent().change_state('gameover')
+func handle_event(event):
+	if event.is_action_pressed("ui_select"):
+		get_tree().paused = !get_tree().paused
+		if get_tree().paused:
+			$PlayScreen.show()
+		else:
+			$PlayScreen.hide()
+	elif event.is_action_pressed("ui_cancel"):
+		get_tree().quit()

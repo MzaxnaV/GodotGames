@@ -1,8 +1,16 @@
 extends Area2D
 
-var skin = null
+var tier = null
+var colour = null
 
-func init(brick_pos, brick_region, brick_skin):
+func init(brick_pos, brick_colour, brick_tier):
 	position = brick_pos
-	$brick.region_rect = brick_region
-	skin = brick_skin
+	tier = brick_tier
+	colour = brick_colour
+	reduce_tier(0)
+
+
+func reduce_tier(amount):
+	tier -= amount
+	var index = (colour - 1) * 4 + tier
+	$brick.region_rect = Rect2(32 * (index % 6), 16 * (index / 6), 32, 16)

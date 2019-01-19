@@ -28,7 +28,9 @@ func _on_Brick_area_entered(area, brick):
 		$Ball.velocity.y = -$Ball.velocity.y
 		$Ball.position.y = brick.position.y + 12
 	
-	brick.queue_free()
+	brick.reduce_tier(1)
+	if brick.tier < 0:
+		brick.queue_free()
 
 func _on_Paddle_area_entered(area):
 	$Ball.velocity.y = -$Ball.velocity.y

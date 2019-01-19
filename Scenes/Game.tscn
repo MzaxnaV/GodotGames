@@ -57,6 +57,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 [node name="GameOverState" type="Node" parent="." index="1"]
 
 pause_mode = 1
+editor/display_folded = true
 script = ExtResource( 3 )
 _sections_unfolded = [ "Pause" ]
 
@@ -154,6 +155,7 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="PlayState" type="Node" parent="." index="2"]
 
 pause_mode = 2
+editor/display_folded = true
 script = ExtResource( 6 )
 _sections_unfolded = [ "Pause" ]
 
@@ -208,9 +210,9 @@ _sections_unfolded = [ "Pause" ]
 [node name="StartState" type="Node" parent="." index="4"]
 
 pause_mode = 1
+editor/display_folded = true
 script = ExtResource( 8 )
 _sections_unfolded = [ "Pause" ]
-posbyColour = [ Vector2( 0, 0 ), Vector2( 128, 0 ), Vector2( 64, 16 ), Vector2( 0, 32 ), Vector2( 128, 32 ) ]
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
 

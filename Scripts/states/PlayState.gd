@@ -13,6 +13,7 @@ func exit():
 
 func handle_event(event):
 	if event.is_action_pressed("ui_select"):
+		$PlayScreen/PauseSound.play()
 		get_tree().paused = !get_tree().paused
 		if get_tree().paused:
 			$PlayScreen.show()

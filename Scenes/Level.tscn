@@ -1,18 +1,20 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Paddle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Ball.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=5]
-[ext_resource path="res://Assets/Sounds/brick-hit-2.wav" type="AudioStream" id=6]
-[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=7]
-[ext_resource path="res://Scripts/Hearts.gd" type="Script" id=8]
-[ext_resource path="res://Assets/Graphics/hearts.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=10]
-[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Scripts/Hearts.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Graphics/hearts.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sounds/brick-hit-1.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sounds/brick-hit-2.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Sounds/hurt.wav" type="AudioStream" id=13]
 
-[node name="Level" type="Node" index="0"]
+[node name="Level" type="Node"]
 
 pause_mode = 1
 script = ExtResource( 1 )
@@ -35,35 +37,9 @@ _sections_unfolded = [ "Region", "Transform" ]
 position = Vector2( 50, 150 )
 _sections_unfolded = [ "Audio Bus", "Collision", "Transform" ]
 
-[node name="PaddleHitSound" type="AudioStreamPlayer" parent="." index="2"]
+[node name="HUD" type="CanvasLayer" parent="." index="2"]
 
-stream = ExtResource( 5 )
-volume_db = -30.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="BrickHitSound" type="AudioStreamPlayer" parent="." index="3"]
-
-stream = ExtResource( 6 )
-volume_db = -30.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="WallHitSound" type="AudioStreamPlayer" parent="." index="4"]
-
-stream = ExtResource( 7 )
-volume_db = -30.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="HUD" type="CanvasLayer" parent="." index="5"]
-
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -88,12 +64,12 @@ _sections_unfolded = [ "Grow Direction" ]
 
 [node name="Hearts" type="Node" parent="HUD/LevelScreen" index="0"]
 
-script = ExtResource( 8 )
+script = ExtResource( 5 )
 
 [node name="Heart1" type="Sprite" parent="HUD/LevelScreen/Hearts" index="0"]
 
 position = Vector2( 340, 8 )
-texture = ExtResource( 9 )
+texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 10, 9 )
 _sections_unfolded = [ "Region", "Transform" ]
@@ -101,7 +77,7 @@ _sections_unfolded = [ "Region", "Transform" ]
 [node name="Heart2" type="Sprite" parent="HUD/LevelScreen/Hearts" index="1"]
 
 position = Vector2( 351, 8 )
-texture = ExtResource( 9 )
+texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 10, 9 )
 _sections_unfolded = [ "Region", "Transform" ]
@@ -109,7 +85,7 @@ _sections_unfolded = [ "Region", "Transform" ]
 [node name="Heart3" type="Sprite" parent="HUD/LevelScreen/Hearts" index="2"]
 
 position = Vector2( 362, 8 )
-texture = ExtResource( 9 )
+texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 10, 9 )
 _sections_unfolded = [ "Region", "Transform" ]
@@ -131,7 +107,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 7 )
 text = "0"
 align = 2
 valign = 1
@@ -155,7 +131,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 7 )
 text = "Score: "
 valign = 1
 percent_visible = 1.0
@@ -179,7 +155,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 8 )
 text = "Press Enter to serve!"
 align = 1
 valign = 1
@@ -187,6 +163,51 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
+
+[node name="PaddleHitSound" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 9 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BrickHit1Sound" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 10 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BrickHit2Sound" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 11 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="WallHitSound" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 12 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 13 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="area_entered" from="Paddle" to="." method="_on_Paddle_area_entered"]
 

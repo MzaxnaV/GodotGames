@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/background.png" type="Texture" id=2]
@@ -6,12 +6,13 @@
 [ext_resource path="res://Assets/Fonts/large_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Scripts/states/PlayState.gd" type="Script" id=6]
-[ext_resource path="res://Scripts/states/ServeState.gd" type="Script" id=7]
-[ext_resource path="res://Scripts/states/StartState.gd" type="Script" id=8]
-[ext_resource path="res://Scripts/StartScreen.gd" type="Script" id=9]
-[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=10]
-[ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=11]
-[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sounds/pause.wav" type="AudioStream" id=7]
+[ext_resource path="res://Scripts/states/ServeState.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/states/StartState.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/StartScreen.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=13]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -201,17 +202,26 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="PauseSound" type="AudioStreamPlayer" parent="PlayState/PlayScreen" index="1"]
+
+stream = ExtResource( 7 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [node name="ServeState" type="Node" parent="." index="3"]
 
 pause_mode = 1
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="StartState" type="Node" parent="." index="4"]
 
 pause_mode = 1
 editor/display_folded = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
@@ -230,7 +240,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="Label" type="Label" parent="StartState/StartScreen" index="0"]
@@ -336,7 +346,7 @@ _sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts", "cus
 
 [node name="SelectionSound" type="AudioStreamPlayer" parent="StartState/StartScreen" index="2"]
 
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
@@ -345,7 +355,7 @@ bus = "Master"
 
 [node name="ConfirmSound" type="AudioStreamPlayer" parent="StartState/StartScreen" index="3"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
@@ -355,7 +365,7 @@ bus = "Master"
 [node name="breakout" type="Sprite" parent="." index="5"]
 
 position = Vector2( 0, 245 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 centered = false
 _sections_unfolded = [ "Transform" ]
 

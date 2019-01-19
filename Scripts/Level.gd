@@ -11,9 +11,8 @@ func _physics_process(delta):
 		$WallHitSound.play()
 
 func _on_Brick_area_entered(area, brick):
-	score += 10
+	score += brick.tier * 200 + brick.colour * 25
 	$HUD/LevelScreen/Score.set_text(str(score))
-	$BrickHitSound.play()
 
 	if $Ball.position.x - 2 < brick.position.x - 16 and $Ball.velocity.x > 0:
 		$Ball.velocity.x = -$Ball.velocity.x
@@ -28,9 +27,12 @@ func _on_Brick_area_entered(area, brick):
 		$Ball.velocity.y = -$Ball.velocity.y
 		$Ball.position.y = brick.position.y + 12
 	
-	brick.reduce_tier(1)
-	if brick.tier < 0:
+	if brick.tier <= 0 and brick.colour <= 1 :
+		$BrickHit1Sound.play()
 		brick.queue_free()
+	else:
+		$BrickHit2Sound.play()
+		brick.reduce_tier(1)
 
 func _on_Paddle_area_entered(area):
 	$Ball.velocity.y = -$Ball.velocity.y
@@ -90,6 +92,7 @@ func boundBall():
 
 	if $Ball.position.y >= CONSTANTS.VIRTUAL_HEIGHT - 4:
 		health -= 1
+		$HurtSound.play()
 		get_parent().get_parent().change_state('serve')
 		if health < 1:
 			get_parent().get_parent().change_state('gameover')

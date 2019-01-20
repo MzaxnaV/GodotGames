@@ -4,7 +4,7 @@ var level = null
 
 func enter(params):
 	level = params
-	level.set_play(true)
+	level.set_play('playing')
 	add_child(level)
 
 func exit():

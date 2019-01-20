@@ -4,6 +4,7 @@ onready var state_map = {
 	'start' : $StartState,
 	'play' : $PlayState,
 	'serve' : $ServeState,
+	'victory' : $VictoryState,
 	'gameover' : $GameOverState
 }
 

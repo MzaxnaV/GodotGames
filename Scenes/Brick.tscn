@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 radius = 8.0
 height = 16.0
 
-[node name="Brick" type="Area2D"]
+[node name="Brick" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

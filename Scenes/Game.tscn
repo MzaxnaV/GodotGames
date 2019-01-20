@@ -1,18 +1,19 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/background.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/states/GameOverState.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Fonts/large_font.tres" type="DynamicFont" id=4]
-[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Scripts/states/PlayState.gd" type="Script" id=6]
-[ext_resource path="res://Assets/Sounds/pause.wav" type="AudioStream" id=7]
-[ext_resource path="res://Scripts/states/ServeState.gd" type="Script" id=8]
-[ext_resource path="res://Scripts/states/StartState.gd" type="Script" id=9]
-[ext_resource path="res://Scripts/StartScreen.gd" type="Script" id=10]
-[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=11]
-[ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=12]
-[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/states/StartState.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/StartScreen.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Fonts/large_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=8]
+[ext_resource path="res://Scripts/states/ServeState.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/states/PlayState.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Sounds/pause.wav" type="AudioStream" id=11]
+[ext_resource path="res://Scripts/states/VictoryState.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/states/GameOverState.gd" type="Script" id=13]
+[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=14]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -42,7 +43,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" index="0"]
 
 pause_mode = 2
 script = ExtResource( 1 )
@@ -55,173 +56,11 @@ texture = ExtResource( 2 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform" ]
 
-[node name="GameOverState" type="Node" parent="." index="1"]
+[node name="StartState" type="Node" parent="." index="1"]
 
 pause_mode = 1
 editor/display_folded = true
 script = ExtResource( 3 )
-_sections_unfolded = [ "Pause" ]
-
-[node name="GameOverScreen" type="Control" parent="GameOverState" index="0"]
-
-editor/display_folded = true
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 432.0
-margin_bottom = 243.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Grow Direction", "Margin" ]
-
-[node name="GameOverText" type="Label" parent="GameOverState/GameOverScreen" index="0"]
-
-anchor_left = 0.5
-anchor_top = 0.0
-anchor_right = 0.5
-anchor_bottom = 0.0
-margin_left = -86.0
-margin_top = 67.0
-margin_right = 86.0
-margin_bottom = 99.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
-text = "GAME OVER"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="ScoreText" type="Label" parent="GameOverState/GameOverScreen" index="1"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -111.0
-margin_top = -131.0
-margin_right = 111.0
-margin_bottom = -115.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
-text = "Final Score: 999999999999"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="Text" type="Label" parent="GameOverState/GameOverScreen" index="2"]
-
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -56.0
-margin_top = -71.0
-margin_right = 56.0
-margin_bottom = -55.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 5 )
-text = "Press Enter!"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="PlayState" type="Node" parent="." index="2"]
-
-pause_mode = 2
-editor/display_folded = true
-script = ExtResource( 6 )
-_sections_unfolded = [ "Pause" ]
-
-[node name="PlayScreen" type="Control" parent="PlayState" index="0"]
-
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 432.0
-margin_bottom = 243.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Margin", "Pause" ]
-
-[node name="PauseText" type="Label" parent="PlayState/PlayScreen" index="0"]
-
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -60.0
-margin_top = -16.0
-margin_right = 60.0
-margin_bottom = 16.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
-text = "Paused"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
-
-[node name="PauseSound" type="AudioStreamPlayer" parent="PlayState/PlayScreen" index="1"]
-
-stream = ExtResource( 7 )
-volume_db = -30.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="ServeState" type="Node" parent="." index="3"]
-
-pause_mode = 1
-script = ExtResource( 8 )
-_sections_unfolded = [ "Pause" ]
-
-[node name="StartState" type="Node" parent="." index="4"]
-
-pause_mode = 1
-editor/display_folded = true
-script = ExtResource( 9 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
@@ -240,7 +79,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 10 )
+script = ExtResource( 4 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="Label" type="Label" parent="StartState/StartScreen" index="0"]
@@ -259,7 +98,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 text = "BREAKOUT"
 percent_visible = 1.0
 lines_skipped = 0
@@ -302,7 +141,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.402344, 1, 0.859924, 1 )
 toggle_mode = false
@@ -332,7 +171,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/hover = SubResource( 3 )
 custom_styles/focus = SubResource( 4 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.363281, 1, 1, 1 )
 toggle_mode = false
@@ -346,7 +185,7 @@ _sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts", "cus
 
 [node name="SelectionSound" type="AudioStreamPlayer" parent="StartState/StartScreen" index="2"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 7 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
@@ -355,17 +194,193 @@ bus = "Master"
 
 [node name="ConfirmSound" type="AudioStreamPlayer" parent="StartState/StartScreen" index="3"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 8 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="breakout" type="Sprite" parent="." index="5"]
+[node name="ServeState" type="Node" parent="." index="2"]
+
+pause_mode = 1
+script = ExtResource( 9 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="PlayState" type="Node" parent="." index="3"]
+
+pause_mode = 2
+editor/display_folded = true
+script = ExtResource( 10 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="PlayScreen" type="Control" parent="PlayState" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 432.0
+margin_bottom = 243.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin", "Pause" ]
+
+[node name="PauseText" type="Label" parent="PlayState/PlayScreen" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -16.0
+margin_right = 60.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 5 )
+text = "Paused"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="PlayState/PlayScreen" index="1"]
+
+stream = ExtResource( 11 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="VictoryState" type="Node" parent="." index="4"]
+
+pause_mode = 1
+editor/display_folded = true
+script = ExtResource( 12 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="ShowScreen" type="Timer" parent="VictoryState" index="0"]
+
+process_mode = 1
+wait_time = 0.75
+one_shot = true
+autostart = false
+
+[node name="GameOverState" type="Node" parent="." index="5"]
+
+pause_mode = 1
+editor/display_folded = true
+script = ExtResource( 13 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="GameOverScreen" type="Control" parent="GameOverState" index="0"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 432.0
+margin_bottom = 243.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Grow Direction", "Margin" ]
+
+[node name="GameOverText" type="Label" parent="GameOverState/GameOverScreen" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -86.0
+margin_top = 67.0
+margin_right = 86.0
+margin_bottom = 99.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 5 )
+text = "GAME OVER"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ScoreText" type="Label" parent="GameOverState/GameOverScreen" index="1"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -111.0
+margin_top = -131.0
+margin_right = 111.0
+margin_bottom = -115.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Final Score: 999999999999"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Text" type="Label" parent="GameOverState/GameOverScreen" index="2"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -56.0
+margin_top = -71.0
+margin_right = 56.0
+margin_bottom = -55.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Press Enter!"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="breakout" type="Sprite" parent="." index="6"]
 
 position = Vector2( 0, 245 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 centered = false
 _sections_unfolded = [ "Transform" ]
 
@@ -376,5 +391,7 @@ _sections_unfolded = [ "Transform" ]
 [connection signal="focus_entered" from="StartState/StartScreen/Menu/High Scores" to="StartState/StartScreen" method="_on_High_Scores_focus_entered"]
 
 [connection signal="pressed" from="StartState/StartScreen/Menu/High Scores" to="StartState/StartScreen" method="_on_High_Scores_pressed"]
+
+[connection signal="timeout" from="VictoryState/ShowScreen" to="VictoryState" method="_on_ShowScreen_timeout"]
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Paddle.tscn" type="PackedScene" id=2]
@@ -7,15 +7,16 @@
 [ext_resource path="res://Scripts/Hearts.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Graphics/hearts.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=7]
-[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Assets/Graphics/Particle.tres" type="Material" id=9]
-[ext_resource path="res://Assets/Graphics/particle.png" type="Texture" id=10]
-[ext_resource path="res://Scripts/Explosion.gd" type="Script" id=11]
-[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=12]
-[ext_resource path="res://Assets/Sounds/brick-hit-1.wav" type="AudioStream" id=13]
-[ext_resource path="res://Assets/Sounds/brick-hit-2.wav" type="AudioStream" id=14]
-[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=15]
-[ext_resource path="res://Assets/Sounds/hurt.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Fonts/large_font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Assets/Graphics/Particle.tres" type="Material" id=10]
+[ext_resource path="res://Assets/Graphics/particle.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Explosion.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sounds/brick-hit-1.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Sounds/brick-hit-2.wav" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/hurt.wav" type="AudioStream" id=17]
 
 [node name="Level" type="Node" index="0"]
 
@@ -38,7 +39,9 @@ _sections_unfolded = [ "Region", "Transform" ]
 position = Vector2( 50, 180 )
 _sections_unfolded = [ "Audio Bus", "Collision", "Transform" ]
 
-[node name="HUD" type="CanvasLayer" parent="." index="2"]
+[node name="BricksContainer" type="Node" parent="." index="2"]
+
+[node name="HUD" type="CanvasLayer" parent="." index="3"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -139,16 +142,18 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Margin", "custom_fonts" ]
 
-[node name="ServeText" type="Label" parent="HUD/LevelScreen" index="2"]
+[node name="LevelText" type="Label" parent="HUD/LevelScreen" index="2"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -93.0
-margin_top = -8.0
-margin_right = 93.0
-margin_bottom = 8.0
+margin_left = -90.0
+margin_top = -16.0
+margin_right = 90.0
+margin_bottom = 16.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -156,7 +161,57 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 8 )
+text = "Level 01"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ServeText" type="Label" parent="HUD/LevelScreen/LevelText" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -93.0
+margin_top = 25.0
+margin_right = 93.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
 text = "Press Enter to serve!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="VictoryText" type="Label" parent="HUD/LevelScreen" index="3"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -170.0
+margin_top = -55.5
+margin_right = 170.0
+margin_bottom = -23.5
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "Level 9999 complete"
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -167,7 +222,7 @@ _sections_unfolded = [ "custom_fonts" ]
 [node name="Explosion" type="Particles2D" parent="HUD" index="1"]
 
 emitting = false
-amount = 20
+amount = 64
 lifetime = 0.5
 one_shot = true
 preprocess = 0.0
@@ -179,24 +234,15 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = true
 draw_order = 0
-process_material = ExtResource( 9 )
-texture = ExtResource( 10 )
+process_material = ExtResource( 10 )
+texture = ExtResource( 11 )
 normal_map = null
 h_frames = 1
 v_frames = 1
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Process Material" ]
 
-[node name="PaddleHitSound" type="AudioStreamPlayer" parent="." index="3"]
-
-stream = ExtResource( 12 )
-volume_db = -30.0
-pitch_scale = 1.0
-autoplay = false
-mix_target = 0
-bus = "Master"
-
-[node name="BrickHit1Sound" type="AudioStreamPlayer" parent="." index="4"]
+[node name="PaddleHitSound" type="AudioStreamPlayer" parent="." index="4"]
 
 stream = ExtResource( 13 )
 volume_db = -30.0
@@ -205,7 +251,7 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="BrickHit2Sound" type="AudioStreamPlayer" parent="." index="5"]
+[node name="BrickHit1Sound" type="AudioStreamPlayer" parent="." index="5"]
 
 stream = ExtResource( 14 )
 volume_db = -30.0
@@ -214,7 +260,7 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="WallHitSound" type="AudioStreamPlayer" parent="." index="6"]
+[node name="BrickHit2Sound" type="AudioStreamPlayer" parent="." index="6"]
 
 stream = ExtResource( 15 )
 volume_db = -30.0
@@ -223,9 +269,18 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="HurtSound" type="AudioStreamPlayer" parent="." index="7"]
+[node name="WallHitSound" type="AudioStreamPlayer" parent="." index="7"]
 
 stream = ExtResource( 16 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 17 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false

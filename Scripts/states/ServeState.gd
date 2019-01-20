@@ -4,7 +4,7 @@ var level = null
 
 func enter(params):
 	level = params
-	level.set_play(false)
+	level.set_play('serving')
 	add_child(level)
 
 func handle_event(event):

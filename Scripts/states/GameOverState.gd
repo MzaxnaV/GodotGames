@@ -4,6 +4,7 @@ var score = 0
 
 func enter(params):
 	$GameOverScreen/ScoreText.text = "Final Score: " + str(params.score)
+	params.queue_free()
 	$GameOverScreen.show()
 
 func exit():

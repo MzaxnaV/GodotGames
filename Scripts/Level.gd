@@ -7,7 +7,7 @@ var Brick = preload("res://Scenes/Brick.tscn")
 signal game_over
 
 func _physics_process(delta):
-	if boundBall():
+	if bound_ball():
 		$WallHitSound.play()
 
 func _on_Brick_area_entered(area, brick):
@@ -27,8 +27,10 @@ func _on_Brick_area_entered(area, brick):
 		$Ball.velocity.y = -$Ball.velocity.y
 		$Ball.position.y = brick.position.y + 12
 	
-	if brick.tier <= 0 and brick.colour <= 1 :
+	if brick.tier <= 0 and brick.colour <= 1:
 		$BrickHit1Sound.play()
+		$Explosion.position = brick.position
+		$Explosion.restart()
 		brick.queue_free()
 	else:
 		$BrickHit2Sound.play()
@@ -45,7 +47,7 @@ func _on_Paddle_area_entered(area):
 	$Ball.velocity = $Ball.velocity.normalized() * 200
 	$Ball.position.y = $Paddle.position.y - 8
 	$PaddleHitSound.play()
-	
+
 func populate(bricks, paddle_skin):
 	score = 0
 	health = 3
@@ -66,13 +68,13 @@ func set_play(is_playing):
 		$HUD/LevelScreen/ServeText.show()
 		$Ball.init()
 		$Ball.velocity = Vector2(0, 0)
-		$Ball.position = Vector2(50, 150)
+		$Ball.position = Vector2(50, 180)
 		$Ball.hide()
 		$Paddle/ball.set_region_rect(change_ball($Ball.skin))
 		$Paddle/ball.show()
 		$HUD/LevelScreen/Hearts.change_heart(health)
 
-func boundBall():
+func bound_ball():
 	var isTouched = false;
 
 	if $Ball.position.x <= 4:

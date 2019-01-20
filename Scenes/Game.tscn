@@ -42,7 +42,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
 pause_mode = 2
 script = ExtResource( 1 )

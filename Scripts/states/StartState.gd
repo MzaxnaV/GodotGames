@@ -11,7 +11,7 @@ func exit():
 	$StartScreen.hide()
 	var level = Level.instance()
 	var paddle_skin = 1
-	level.populate(generate_bricks(1), paddle_skin)
+	level.populate(generate_bricks(32), paddle_skin)
 	return level
 
 func generate_bricks(level):

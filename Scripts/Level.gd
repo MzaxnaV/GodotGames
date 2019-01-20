@@ -13,6 +13,7 @@ func _physics_process(delta):
 func _on_Brick_area_entered(area, brick):
 	score += brick.tier * 200 + brick.colour * 25
 	$HUD/LevelScreen/Score.set_text(str(score))
+	$HUD/Explosion.explode(brick.position, brick.colour, brick.tier)
 
 	if $Ball.position.x - 2 < brick.position.x - 16 and $Ball.velocity.x > 0:
 		$Ball.velocity.x = -$Ball.velocity.x
@@ -29,8 +30,6 @@ func _on_Brick_area_entered(area, brick):
 	
 	if brick.tier <= 0 and brick.colour <= 1:
 		$BrickHit1Sound.play()
-		$Explosion.position = brick.position
-		$Explosion.restart()
 		brick.queue_free()
 	else:
 		$BrickHit2Sound.play()

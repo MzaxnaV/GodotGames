@@ -2,8 +2,9 @@ extends Node
 
 onready var state_map = {
 	'start' : $StartState,
-	'play' : $PlayState,
+	'highscore' : $HighScoreState,
 	'serve' : $ServeState,
+	'play' : $PlayState,
 	'victory' : $VictoryState,
 	'gameover' : $GameOverState
 }

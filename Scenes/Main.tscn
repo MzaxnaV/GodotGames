@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scripts/FPS.gd" type="Script" id=4]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 pause_mode = 2
 _sections_unfolded = [ "Pause" ]

@@ -12,3 +12,4 @@ func _on_Start_pressed():
 
 func _on_High_Scores_pressed():
 	$ConfirmSound.play()
+	get_parent().get_parent().change_state('highscore')

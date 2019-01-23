@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/background.png" type="Texture" id=2]
@@ -8,12 +8,15 @@
 [ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=7]
 [ext_resource path="res://Assets/Sounds/confirm.wav" type="AudioStream" id=8]
-[ext_resource path="res://Scripts/states/ServeState.gd" type="Script" id=9]
-[ext_resource path="res://Scripts/states/PlayState.gd" type="Script" id=10]
-[ext_resource path="res://Assets/Sounds/pause.wav" type="AudioStream" id=11]
-[ext_resource path="res://Scripts/states/VictoryState.gd" type="Script" id=12]
-[ext_resource path="res://Scripts/states/GameOverState.gd" type="Script" id=13]
-[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=14]
+[ext_resource path="res://Scripts/states/HighScoreState.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=11]
+[ext_resource path="res://Scripts/states/ServeState.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/states/PlayState.gd" type="Script" id=13]
+[ext_resource path="res://Assets/Sounds/pause.wav" type="AudioStream" id=14]
+[ext_resource path="res://Scripts/states/VictoryState.gd" type="Script" id=15]
+[ext_resource path="res://Scripts/states/GameOverState.gd" type="Script" id=16]
+[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=17]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -107,7 +110,6 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Menu" type="VBoxContainer" parent="StartState/StartScreen" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -201,17 +203,98 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="ServeState" type="Node" parent="." index="2"]
+[node name="HighScoreState" type="Node" parent="." index="2"]
+
+script = ExtResource( 9 )
+
+[node name="HighscoreScreen" type="Control" parent="HighScoreState" index="0"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 434.0
+margin_bottom = 243.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin" ]
+
+[node name="title" type="Label" parent="HighScoreState/HighscoreScreen" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -98.0
+margin_top = 26.0
+margin_right = 98.0
+margin_bottom = 58.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 5 )
+text = "High Scores"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+
+[node name="info" type="Label" parent="HighScoreState/HighscoreScreen" index="1"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -90.0
+margin_top = -19.0
+margin_right = 90.0
+margin_bottom = -11.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 10 )
+text = "Press Escape to return to the main menu!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="WallHitSound" type="AudioStreamPlayer" parent="HighScoreState" index="1"]
+
+stream = ExtResource( 11 )
+volume_db = 0.0
+pitch_scale = 0.01
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="ServeState" type="Node" parent="." index="3"]
 
 pause_mode = 1
-script = ExtResource( 9 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Pause" ]
 
-[node name="PlayState" type="Node" parent="." index="3"]
+[node name="PlayState" type="Node" parent="." index="4"]
 
 pause_mode = 2
 editor/display_folded = true
-script = ExtResource( 10 )
+script = ExtResource( 13 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="PlayScreen" type="Control" parent="PlayState" index="0"]
@@ -258,18 +341,18 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="PlayState/PlayScreen" index="1"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 14 )
 volume_db = -30.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="VictoryState" type="Node" parent="." index="4"]
+[node name="VictoryState" type="Node" parent="." index="5"]
 
 pause_mode = 1
 editor/display_folded = true
-script = ExtResource( 12 )
+script = ExtResource( 15 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="ShowScreen" type="Timer" parent="VictoryState" index="0"]
@@ -279,11 +362,11 @@ wait_time = 0.75
 one_shot = true
 autostart = false
 
-[node name="GameOverState" type="Node" parent="." index="5"]
+[node name="GameOverState" type="Node" parent="." index="6"]
 
 pause_mode = 1
 editor/display_folded = true
-script = ExtResource( 13 )
+script = ExtResource( 16 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="GameOverScreen" type="Control" parent="GameOverState" index="0"]
@@ -377,10 +460,10 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="breakout" type="Sprite" parent="." index="6"]
+[node name="breakout" type="Sprite" parent="." index="7"]
 
 position = Vector2( 0, 245 )
-texture = ExtResource( 14 )
+texture = ExtResource( 17 )
 centered = false
 _sections_unfolded = [ "Transform" ]
 

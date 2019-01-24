@@ -39,11 +39,11 @@ func handle_event(event):
 
 func set_buttons_tint():
 	if paddle_skin == 1:
-		$PaddleSelectScreen/LeftSelection.modulate = Color(40/255.0, 40/255.0, 40/255.0)
+		$PaddleSelectScreen/LeftSelection.modulate = Color(40/255.0, 40/255.0, 40/255.0, 1-40/255.0)
 	else:
-		$PaddleSelectScreen/LeftSelection.modulate = Color(1, 1, 1)
+		$PaddleSelectScreen/LeftSelection.modulate = Color(1, 1, 1, 1)
 
 	if paddle_skin == 4:
-		$PaddleSelectScreen/RightSelection.modulate = Color(40/255.0, 40/255.0, 40/255.0)
+		$PaddleSelectScreen/RightSelection.modulate = Color(40/255.0, 40/255.0, 40/255.0, 1-40/255.0)
 	else:
-		$PaddleSelectScreen/RightSelection.modulate = Color(1, 1, 1)
+		$PaddleSelectScreen/RightSelection.modulate = Color(1, 1, 1, 1)

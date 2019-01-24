@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Scripts/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/background.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Scripts/states/GameOverState.gd" type="Script" id=22]
 [ext_resource path="res://Scripts/states/EnterHighScoreState.gd" type="Script" id=23]
 [ext_resource path="res://Assets/Sounds/high_score.wav" type="AudioStream" id=24]
+[ext_resource path="res://Assets/Sounds/music.wav" type="AudioStream" id=25]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -311,6 +312,7 @@ bus = "Master"
 
 [node name="PaddleSelectState" type="Node" parent="." index="2"]
 
+editor/display_folded = true
 script = ExtResource( 9 )
 
 [node name="PaddleSelectScreen" type="Control" parent="PaddleSelectState" index="0"]
@@ -982,12 +984,14 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="breakout" type="Sprite" parent="." index="9"]
+[node name="Music" type="AudioStreamPlayer" parent="." index="9"]
 
-position = Vector2( 0, 245 )
-texture = ExtResource( 11 )
-centered = false
-_sections_unfolded = [ "Transform" ]
+stream = ExtResource( 25 )
+volume_db = -20.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="focus_entered" from="StartState/StartScreen/Menu/Start" to="StartState/StartScreen" method="_on_Start_focus_entered"]
 

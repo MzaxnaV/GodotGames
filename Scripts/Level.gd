@@ -6,6 +6,7 @@ var paddle_skin = null
 var Brick = preload("res://Scenes/Brick.tscn")
 var level = 1
 var victory = false
+var threshold = null
 
 signal game_over
 
@@ -18,6 +19,14 @@ func _physics_process(delta):
 
 func _on_Brick_area_entered(area, brick):
 	score += brick.tier * 200 + brick.colour * 25
+
+	if score > threshold:
+		threshold += CONSTANTS.THRESHOLD
+		$RecoverSound.play()
+		health += 1
+		clamp(health, 1, 3)
+		$HUD/LevelScreen/Hearts.change_heart(health)
+
 	$HUD/LevelScreen/Score.set_text(str(score))
 	$HUD/Explosion.explode(brick.position, brick.colour, brick.tier)
 
@@ -59,11 +68,14 @@ func populate(l, paddle_s):
 	if score == null:
 		score = 5000
 	$HUD/LevelScreen/Score.text = str(score)
+	threshold = score + CONSTANTS.THRESHOLD
 
 	if (paddle_skin == null):
 		paddle_skin = paddle_s
 
-	health = 3
+	if (health == null):
+		health = 3
+
 	level = l
 
 	var bricks = generate_bricks(level)

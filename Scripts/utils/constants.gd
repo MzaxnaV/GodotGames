@@ -5,6 +5,8 @@ const VIRTUAL_HEIGHT = 243
 
 const PADDLE_SPEED = 200
 
+const THRESHOLD = 1000
+
 const COLOURS = {
 	0 : [99.0/255.0, 155.0/255.0, 255.0/255.0], #blue
 	1 : [106.0/255.0, 190.0/255.0, 47.0/255.0], #green

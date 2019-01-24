@@ -1,20 +1,24 @@
 extends "res://Scripts/states/BaseState.gd"
 
 func enter(params):
+	create_highscore_table()
 	$HighscoreScreen.show()
-	check_highscore(params.score)
 
 func handle_event(event):
 	if event.is_action_released('ui_cancel'):
 		$WallHitSound.play()
 		get_parent().change_state('start')
 
-func hide():
+func exit():
 	$HighscoreScreen.hide()
 
-func check_highscore(score):
-	if score != null:
-		print("update highscore")
-		CONSTANTS.update_highscore()
+func create_highscore_table():
+	var names = ""
+	var scores = ""
 
-	print("use CONSTANTS.hoghscore to render the scores")
+	for highscore in CONSTANTS.highscores:
+		names += highscore[0] + '\n'
+		scores += str(highscore[1]) + '\n'
+
+	$HighscoreScreen/names.text = names
+	$HighscoreScreen/scores.text = scores

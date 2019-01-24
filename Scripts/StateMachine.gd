@@ -27,6 +27,6 @@ func _input(event):
 func change_state(state_name):
 	if (current_state):
 		params = current_state.exit()
-	print("Entering state: ", state_name)
+	print("StateMachine.gd: Entering state: ", state_name)
 	current_state = state_map[state_name]
 	current_state.enter(params)

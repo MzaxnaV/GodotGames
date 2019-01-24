@@ -65,7 +65,7 @@ func populate(l, paddle_s):
 
 	health = 3
 	level = l
-	
+
 	var bricks = generate_bricks(level)
 	$Paddle.init(paddle_skin)
 	

@@ -8,7 +8,7 @@ func _on_High_Scores_focus_entered():
 
 func _on_Start_pressed():
 	$ConfirmSound.play()
-	get_parent().get_parent().change_state('serve')
+	get_parent().get_parent().change_state('paddleselect')
 
 func _on_High_Scores_pressed():
 	$ConfirmSound.play()

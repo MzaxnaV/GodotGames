@@ -3,14 +3,14 @@
 [ext_resource path="res://Scripts/Paddle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 8 )
+radius = 8.0
+height = 48.0
 
 [node name="Paddle" type="Area2D"]
 
-editor/display_folded = true
 position = Vector2( 217, 211 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -35,6 +35,7 @@ _sections_unfolded = [ "Region" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
+rotation = 1.5708
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 

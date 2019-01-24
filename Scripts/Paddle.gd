@@ -31,4 +31,4 @@ func change_paddle():
 		x = 32 * (size-1) * (size) / 2
 
 	$paddle.set_region_rect(Rect2(x, y, 32 * size, 16))
-	$CollisionShape2D.get_shape().set_extents(Vector2(16 * size, 8))
+	$CollisionShape2D.get_shape().set_height(16 * size + 16)

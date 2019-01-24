@@ -18,33 +18,27 @@ var highscores = []
 func _ready():
 	var file = File.new()
 	if not file.file_exists("user://breakout.lst"):
-		print("constants.gd: check file")
 		file.open("user://breakout.lst", File.WRITE)
 		for i in range(10, 0, -1):
 			file.store_line("MAN")
 			file.store_line(str(i * 1000))
 		file.close()
-	get_highscore()
+	get_highscores()
 
-func get_highscore():
-	print("constants.gd: get highscore")
+func get_highscores():
 	var file = File.new()
 	file.open("user://breakout.lst", File.READ)
-	var n = true
-	var current_name = null
-	var counter = 1
 
 	highscores = []
 
 	for i in range(10):
 		highscores.append([file.get_line().substr(0, 3), int(file.get_line())])
-
 	file.close()
 
-func save_highscore():
-	print("constants.gd: save highscore")
+func save_highscores():
 	var file = File.new()
 	file.open("user://breakout.lst", File.WRITE)
+
 	for score in highscores:
 		file.store_line(score[0])
 		file.store_line(str(score[1]))

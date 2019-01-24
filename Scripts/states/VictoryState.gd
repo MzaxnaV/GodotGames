@@ -5,6 +5,7 @@ var level = null
 func enter(params):
 	level = params
 	level.set_play('victory')
+	$VictorySound.play()
 	$ShowScreen.start()
 	add_child(level)
 

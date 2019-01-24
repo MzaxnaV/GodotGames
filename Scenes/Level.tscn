@@ -18,7 +18,7 @@
 [ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=16]
 [ext_resource path="res://Assets/Sounds/hurt.wav" type="AudioStream" id=17]
 
-[node name="Level" type="Node" index="0"]
+[node name="Level" type="Node"]
 
 pause_mode = 1
 script = ExtResource( 1 )
@@ -43,6 +43,7 @@ _sections_unfolded = [ "Audio Bus", "Collision", "Transform" ]
 
 [node name="HUD" type="CanvasLayer" parent="." index="3"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0

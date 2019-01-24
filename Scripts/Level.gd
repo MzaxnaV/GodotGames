@@ -56,9 +56,9 @@ func _on_Paddle_area_entered(area):
 	$PaddleHitSound.play()
 
 func populate(l, paddle_s):
-
 	if score == null:
-		score = 0
+		score = 5000
+	$HUD/LevelScreen/Score.text = str(score)
 
 	if (paddle_skin == null):
 		paddle_skin = paddle_s

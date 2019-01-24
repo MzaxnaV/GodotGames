@@ -3,7 +3,7 @@ extends Area2D
 var velocity = null
 var skin = null
 
-func _physics_process(delta):
+func _process(delta):
 	position += velocity * delta
 
 func init():

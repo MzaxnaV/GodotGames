@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Label.gd" type="Script" id=1]
-[ext_resource path="res://ViewportContainer.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Label.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ViewportContainer.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Game.tscn" type="PackedScene" id=3]
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 [node name="DEBUG_HUD" type="CanvasLayer" parent="." index="0"]
 
@@ -77,6 +78,6 @@ shadow_atlas_quad_1 = 2
 shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
 
-[node name="Game" type="Node" parent="ViewportContainer/GameViewport" index="0"]
+[node name="Game" parent="ViewportContainer/GameViewport" index="0" instance=ExtResource( 3 )]
 
 

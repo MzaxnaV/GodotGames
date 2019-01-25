@@ -1,2 +1,2 @@
-extends "res://scripts/states/BaseState.gd"
+extends "res://scripts/fsm/BaseState.gd"
 

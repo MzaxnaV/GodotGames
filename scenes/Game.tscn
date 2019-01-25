@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://scripts/fsm/StartState.gd" type="Script" id=2]
-[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=3]
+[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=3]
+[ext_resource path="res://graphics/background.png" type="Texture" id=4]
+[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=5]
+[ext_resource path="res://graphics/match3.png" type="Texture" id=6]
+[ext_resource path="res://build/Tween.gd" type="Script" id=7]
 
 [node name="Game" type="Node" index="0"]
 
@@ -12,8 +16,61 @@ script = ExtResource( 1 )
 
 script = ExtResource( 2 )
 
-[node name="DEBUG_BOUNDARY" type="Node2D" parent="." index="1"]
+[node name="BeginGameState" type="Node" parent="." index="1"]
 
+[node name="PlayState" type="Node" parent="." index="2"]
+
+[node name="GameOverState" type="Node" parent="." index="3"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
+
+editor/display_folded = true
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+scroll_offset = Vector2( 0, 0 )
+scroll_base_offset = Vector2( 0, 0 )
+scroll_base_scale = Vector2( 1, 1 )
+scroll_limit_begin = Vector2( 0, 0 )
+scroll_limit_end = Vector2( 0, 0 )
+scroll_ignore_camera_zoom = true
 script = ExtResource( 3 )
+_sections_unfolded = [ "Scroll" ]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+
+motion_scale = Vector2( 1, 1 )
+motion_offset = Vector2( 0, 0 )
+motion_mirroring = Vector2( 1024, 0 )
+_sections_unfolded = [ "Motion" ]
+
+[node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
+
+texture = ExtResource( 4 )
+centered = false
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="DEBUG" type="Node2D" parent="." index="5"]
+
+script = ExtResource( 5 )
+
+[node name="match3" type="Sprite" parent="DEBUG" index="0"]
+
+position = Vector2( 0, 289 )
+texture = ExtResource( 6 )
+centered = false
+script = ExtResource( 7 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Tween" type="Tween" parent="DEBUG/match3" index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
 
 

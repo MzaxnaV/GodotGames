@@ -1,12 +1,26 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
-[ext_resource path="res://scripts/fsm/StartState.gd" type="Script" id=2]
-[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=3]
-[ext_resource path="res://graphics/background.png" type="Texture" id=4]
-[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=5]
-[ext_resource path="res://graphics/match3.png" type="Texture" id=6]
-[ext_resource path="res://build/Tween.gd" type="Script" id=7]
+[ext_resource path="res://scripts/fsm/states/StartState.gd" type="Script" id=2]
+[ext_resource path="res://scripts/fsm/states/BeginGameState.gd" type="Script" id=3]
+[ext_resource path="res://scripts/fsm/states/PlayState.gd" type="Script" id=4]
+[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=5]
+[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=6]
+[ext_resource path="res://graphics/background.png" type="Texture" id=7]
+[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=8]
+[ext_resource path="res://graphics/match3.png" type="Texture" id=9]
+[ext_resource path="res://build/Tween.gd" type="Script" id=10]
+
+[sub_resource type="Gradient" id=2]
+
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0, 0, 0, 0.501961 )
+
+[sub_resource type="GradientTexture" id=1]
+
+flags = 4
+gradient = SubResource( 2 )
+width = 512
 
 [node name="Game" type="Node" index="0"]
 
@@ -16,11 +30,41 @@ script = ExtResource( 1 )
 
 script = ExtResource( 2 )
 
+[node name="StartScreen" type="Control" parent="StartState" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 512.0
+margin_bottom = 288.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Margin", "Visibility" ]
+
+[node name="Alpha" type="Sprite" parent="StartState/StartScreen" index="0"]
+
+scale = Vector2( 1, 296.976 )
+z_index = 1
+texture = SubResource( 1 )
+centered = false
+_sections_unfolded = [ "Animation", "Offset", "Z Index" ]
+
 [node name="BeginGameState" type="Node" parent="." index="1"]
+
+script = ExtResource( 3 )
 
 [node name="PlayState" type="Node" parent="." index="2"]
 
+script = ExtResource( 4 )
+
 [node name="GameOverState" type="Node" parent="." index="3"]
+
+script = ExtResource( 5 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
 
@@ -36,7 +80,7 @@ scroll_base_scale = Vector2( 1, 1 )
 scroll_limit_begin = Vector2( 0, 0 )
 scroll_limit_end = Vector2( 0, 0 )
 scroll_ignore_camera_zoom = true
-script = ExtResource( 3 )
+script = ExtResource( 6 )
 _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
@@ -45,23 +89,32 @@ motion_scale = Vector2( 1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 1024, 0 )
 _sections_unfolded = [ "Motion" ]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
 
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="DEBUG" type="Node2D" parent="." index="5"]
 
-script = ExtResource( 5 )
+script = ExtResource( 8 )
 
 [node name="match3" type="Sprite" parent="DEBUG" index="0"]
 
+editor/display_folded = true
+visible = false
 position = Vector2( 0, 289 )
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 centered = false
-script = ExtResource( 7 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Tween" type="Tween" parent="DEBUG/match3" index="0"]

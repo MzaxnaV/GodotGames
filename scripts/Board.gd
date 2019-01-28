@@ -40,7 +40,9 @@ func swap():
 	#swap objects indices
 	tiles[pos1.x/32 + 8*pos1.y/32] = tiles[pos2.x/32 + 8*pos2.y/32]
 	tiles[pos2.x/32 + 8*pos2.y/32] = temp
-
+	
 	#fix their positions
-	tiles[pos1.x/32 + 8*pos1.y/32].position = pos1
-	tiles[pos2.x/32 + 8*pos2.y/32].position = pos2
+	$Tween.interpolate_property(tiles[pos1.x/32 + 8*pos1.y/32], 'position', pos2, pos1, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Tween.interpolate_property(tiles[pos2.x/32 + 8*pos2.y/32], 'position', pos1, pos2, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Tween.interpolate_property($Highlight, 'position', pos1, pos2, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	$Tween.start()

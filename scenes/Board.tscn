@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/Board.gd" type="Script" id=1]
+[ext_resource path="res://graphics/highlight.png" type="Texture" id=2]
 
 [node name="Board" type="Node2D" index="0"]
 
@@ -15,5 +16,14 @@ playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0
+
+[node name="Swap" type="Sprite" parent="." index="1"]
+
+visible = false
+z_index = 1
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( -2, -2 )
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 

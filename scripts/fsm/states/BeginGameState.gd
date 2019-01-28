@@ -7,7 +7,8 @@ func enter(params):
 	add_child(board)
 
 func exit():
-	pass
+	remove_child(board)
+	return board
 
 func update_physics(delta):
 	pass

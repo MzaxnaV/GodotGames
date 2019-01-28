@@ -16,5 +16,5 @@ func exit():
 	return board
 
 func handle_event(event):
-	if event.is_action_pressed("ui_accept"):
-		get_parent().change_state('begin-game')
+	if event.is_action_released("ui_accept"):
+		get_parent().change_state('play')

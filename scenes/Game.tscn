@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://scripts/fsm/states/StartState.gd" type="Script" id=2]
@@ -9,20 +9,19 @@
 [ext_resource path="res://graphics/background.png" type="Texture" id=7]
 [ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=8]
 [ext_resource path="res://graphics/match3.png" type="Texture" id=9]
-[ext_resource path="res://build/Tween.gd" type="Script" id=10]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0 )
 colors = PoolColorArray( 0, 0, 0, 0.501961 )
 
-[sub_resource type="GradientTexture" id=1]
+[sub_resource type="GradientTexture" id=2]
 
 flags = 4
-gradient = SubResource( 2 )
+gradient = SubResource( 1 )
 width = 512
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 
@@ -32,6 +31,7 @@ script = ExtResource( 2 )
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -50,7 +50,7 @@ _sections_unfolded = [ "Margin", "Visibility" ]
 
 scale = Vector2( 1, 296.976 )
 z_index = 1
-texture = SubResource( 1 )
+texture = SubResource( 2 )
 centered = false
 _sections_unfolded = [ "Animation", "Offset", "Z Index" ]
 
@@ -114,7 +114,6 @@ visible = false
 position = Vector2( 0, 289 )
 texture = ExtResource( 9 )
 centered = false
-script = ExtResource( 10 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Tween" type="Tween" parent="DEBUG/match3" index="0"]

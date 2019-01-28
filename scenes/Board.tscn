@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/Board.gd" type="Script" id=1]
-[ext_resource path="res://graphics/highlight.png" type="Texture" id=2]
+[ext_resource path="res://graphics/select.png" type="Texture" id=2]
+[ext_resource path="res://graphics/highlight.png" type="Texture" id=3]
 
-[node name="Board" type="Node2D" index="0"]
+[node name="Board" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Material", "Visibility" ]
@@ -17,11 +18,19 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="Swap" type="Sprite" parent="." index="1"]
+[node name="Select" type="Sprite" parent="." index="1"]
 
 visible = false
 z_index = 1
 texture = ExtResource( 2 )
+centered = false
+_sections_unfolded = [ "Offset", "Z Index" ]
+
+[node name="Highlight" type="Sprite" parent="." index="2"]
+
+visible = false
+z_index = 1
+texture = ExtResource( 3 )
 centered = false
 offset = Vector2( -2, -2 )
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]

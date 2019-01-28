@@ -4,35 +4,43 @@ var board = null
 
 var selected_tile = null
 var highlighted = true
+var swap = false
 
 func enter(params):
 	board = params
 	add_child(board)
-	selected_tile = board.get_tile(1, 1)
+	selected_tile = board.get_tile(0, 0)
 
 func exit():
 	board.queue_free()
 
 func handle_event(event):
 
-	var x = selected_tile.position.x / 32 + 1
-	var y = selected_tile.position.y / 32 + 1
+	var x = selected_tile.position.x / 32
+	var y = selected_tile.position.y / 32
 
 	if event.is_action_released("ui_up"):
-		if y > 1:
+		if y > 0:
 			selected_tile = board.get_tile(x, y - 1)
 	elif event.is_action_released("ui_down"):
-		if y < 8:
+		if y < board.size - 1:
 			selected_tile = board.get_tile(x, y + 1)
 	elif event.is_action_released("ui_left"):
-		if x > 1:
+		if x > 0:
 			selected_tile = board.get_tile(x - 1, y)
 	elif event.is_action_released("ui_right"):
-		if x < 8:
+		if x < board.size - 1:
 			selected_tile = board.get_tile(x + 1, y)
 	elif event.is_action_released("ui_accept"):
 		if not highlighted:
 			highlighted = true
+		else:
+			if !swap:
+				board.select(selected_tile.position)
+			else:
+				board.swap()
+
+			swap = !swap
 
 	if highlighted:
 		board.highlight(selected_tile.position)

@@ -21,7 +21,7 @@ flags = 4
 gradient = SubResource( 1 )
 width = 512
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" index="0"]
 
 script = ExtResource( 1 )
 

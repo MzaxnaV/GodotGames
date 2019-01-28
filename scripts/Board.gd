@@ -1,6 +1,6 @@
 extends Node2D
 
-var board_size = 8
+var size = 8
 
 var tiles = []
 
@@ -8,8 +8,8 @@ var Tile = preload('res://scenes/Tile.tscn')
 
 func generate_board():
 	randomize()
-	for y in range(board_size):
-		for x in range(board_size):
+	for y in range(size):
+		for x in range(size):
 			var tile = Tile.instance()
 			tile.init(randi() % 108)
 			tile.position = Vector2(x * 32, y * 32)
@@ -17,9 +17,30 @@ func generate_board():
 			tiles.append(tile)
 
 func highlight(pos):
-	$Swap.show()
-	$Swap.position = pos
+	$Highlight.show()
+	$Highlight.position = pos
 
 func get_tile(x, y):
-	print(x, y, tiles[(x - 1) + (y - 1)*8].position)
-	return tiles[(x - 1) + (y - 1)*8]
+	print(x, y, tiles[x + y * 8].position)
+	return tiles[x + y * 8]
+
+func select(pos):
+	$Select.position = pos
+	$Select.show()
+
+func deselect():
+	$Select.hide()
+
+func swap():
+	deselect()
+	var pos1 = $Highlight.position
+	var pos2 = $Select.position
+	var temp = tiles[pos1.x/32 + 8*pos1.y/32]
+
+	#swap objects indices
+	tiles[pos1.x/32 + 8*pos1.y/32] = tiles[pos2.x/32 + 8*pos2.y/32]
+	tiles[pos2.x/32 + 8*pos2.y/32] = temp
+
+	#fix their positions
+	tiles[pos1.x/32 + 8*pos1.y/32].position = pos1
+	tiles[pos2.x/32 + 8*pos2.y/32].position = pos2

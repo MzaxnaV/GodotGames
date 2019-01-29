@@ -39,9 +39,18 @@ func handle_event(event):
 			highlighted = true
 			board.highlight(selected_tile.position)
 		else:
-			if !allow_swap:
-				board.select(selected_tile.position)
-			else:
+			if allow_swap:
 				board.swap()
+			else:
+				board.select(selected_tile.position)
 
 			allow_swap = !allow_swap
+
+	if event.is_action_released("debug_a"):
+		if board.calculate_matches():
+			for tile in board.matches:
+				tile.hide()
+	elif event.is_action_released("debug_b"):
+		if board.calculate_matches():
+			for tile in board.matches:
+				tile.show()

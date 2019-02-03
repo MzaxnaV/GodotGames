@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://scripts/fsm/states/StartState.gd" type="Script" id=2]
-[ext_resource path="res://scripts/fsm/states/BeginGameState.gd" type="Script" id=3]
-[ext_resource path="res://scripts/fsm/states/PlayState.gd" type="Script" id=4]
-[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=5]
-[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=6]
-[ext_resource path="res://graphics/background.png" type="Texture" id=7]
-[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=8]
+[ext_resource path="res://fonts/large_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scripts/fsm/states/BeginGameState.gd" type="Script" id=4]
+[ext_resource path="res://scripts/fsm/states/PlayState.gd" type="Script" id=5]
+[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=6]
+[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=7]
+[ext_resource path="res://graphics/background.png" type="Texture" id=8]
+[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=9]
 
 [sub_resource type="Gradient" id=1]
 
@@ -20,6 +21,23 @@ flags = 4
 gradient = SubResource( 1 )
 width = 512
 
+[sub_resource type="StreamTexture" id=3]
+
+flags = 0
+load_path = "res://.import/select.9.png-3e1b87254450f532542690e5ad5a6a6a.stex"
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+
+[sub_resource type="StreamTexture" id=5]
+
+flags = 0
+load_path = ""
+
 [node name="Game" type="Node"]
 
 script = ExtResource( 1 )
@@ -30,7 +48,6 @@ script = ExtResource( 2 )
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -43,27 +60,123 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Margin", "Visibility" ]
+_sections_unfolded = [ "Margin" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Alpha" type="Sprite" parent="StartState/StartScreen" index="0"]
 
-scale = Vector2( 1, 296.976 )
+scale = Vector2( 1, 288 )
 z_index = 1
 texture = SubResource( 2 )
 centered = false
-_sections_unfolded = [ "Animation", "Offset", "Z Index" ]
+_sections_unfolded = [ "Animation", "Offset", "Transform", "Z Index" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Menu" type="Node2D" parent="StartState/StartScreen" index="1"]
+
+z_index = 2
+
+[node name="select" type="NinePatchRect" parent="StartState/StartScreen/Menu" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 136.0
+margin_top = 68.0
+margin_right = 312.0
+margin_bottom = 120.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = SubResource( 3 )
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+_sections_unfolded = [ "Patch Margin" ]
+
+[node name="Label" type="Label" parent="StartState/StartScreen/Menu/select" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -66.0
+margin_top = -16.0
+margin_right = 66.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+text = "MATCH 3"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_constants" ]
+
+[node name="Start" type="Button" parent="StartState/StartScreen" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 12.0
+margin_bottom = 20.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/normal = SubResource( 4 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+_sections_unfolded = [ "custom_styles" ]
 
 [node name="BeginGameState" type="Node" parent="." index="1"]
 
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="PlayState" type="Node" parent="." index="2"]
 
-script = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Tween" type="Tween" parent="PlayState" index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+_sections_unfolded = [ "playback" ]
 
 [node name="GameOverState" type="Node" parent="." index="3"]
 
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
 
@@ -79,7 +192,7 @@ scroll_base_scale = Vector2( 1, 1 )
 scroll_limit_begin = Vector2( 0, 0 )
 scroll_limit_end = Vector2( 0, 0 )
 scroll_ignore_camera_zoom = true
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
@@ -95,7 +208,7 @@ __meta__ = {
 
 [node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
 
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform" ]
 __meta__ = {
@@ -104,6 +217,24 @@ __meta__ = {
 
 [node name="DEBUG" type="Node2D" parent="." index="5"]
 
-script = ExtResource( 8 )
+script = ExtResource( 9 )
+
+[node name="select.9" type="NinePatchRect" parent="." index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 211.679
+margin_top = 188.621
+margin_right = 211.679
+margin_bottom = 188.621
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = SubResource( 5 )
 
 

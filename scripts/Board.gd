@@ -4,6 +4,9 @@ var size = 8
 var tiles = []
 var matches = []
 
+const RED = Color(1, 0.25, 0.25, 1)
+const INACTIVE_RED = Color(0.75, 0.25, 0.25, 1)
+
 var Tile = preload('res://scenes/Tile.tscn')
 
 func generate_tiles():
@@ -26,9 +29,15 @@ func generate_board():
 	for tile in tiles:
 		add_child(tile.get_ref())
 
-func highlight(pos):
+func show_highlight():
 	$Highlight.show()
+	$Highlight.modulate = RED
+
+func move_highlight(pos):
 	$Highlight.position = pos
+
+func hide_highlight():
+	$Highlight.modulate = INACTIVE_RED
 
 func get_tile(x, y):
 	print(tiles[x + y * 8].get_ref().position)
@@ -41,7 +50,10 @@ func select(pos):
 func deselect():
 	$Select.hide()
 
-func swap():
+func get_selected():
+	return $Highlight.position / 32
+
+func swap(pos):
 	deselect()
 	var pos1 = $Highlight.position
 	var pos2 = $Select.position
@@ -68,7 +80,6 @@ func fall_tiles():
 				if tile != null && tile.get_ref():
 					tiles[x + spaceY * 8] = tile
 					tiles[x + y * 8] = null
-					print(spaceY, ": ", y)
 					$Tween.interpolate_property(tile.get_ref(), 'position', Vector2(x, y) * 32, Vector2(x, spaceY) * 32, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
 					space = false
 					y = spaceY
@@ -78,6 +89,16 @@ func fall_tiles():
 				if spaceY == -1:
 					spaceY = y
 			y -= 1
+
+	# create replacement tiles
+	for x in range(size):
+		for y in range(size-1, -1, -1):
+			if tiles[x + y * 8] == null || !tiles[x + y * 8].get_ref():
+				var tile = Tile.instance()
+				tile.init(Vector2(0, 0), 1 + randi() % 9, 1)
+				add_child(tile)
+				tiles[x + y * 8] = weakref(tile)
+				$Tween.interpolate_property(tile, 'position', Vector2(x, y-size) * 32, Vector2(x, y) * 32, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
 
 	$Tween.start()
 
@@ -136,7 +157,7 @@ func calculate_matches():
 
 		if match_num >= 3:
 			for i in range(match_num):
-				matches.append(tiles[x + (6 - i) * 8])
+				matches.append(tiles[x + (7 - i) * 8])
 
 	self.matches = matches
 	return matches.size() > 0

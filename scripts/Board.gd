@@ -57,6 +57,35 @@ func swap():
 	$Tween.interpolate_property($Highlight, 'position', pos1, pos2, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	$Tween.start()
 
+func fall_tiles():
+	for x in range(size):
+		var space = false
+		var spaceY = -1
+		var y = size - 1
+		while y >= 0:
+			var tile = tiles[x + y * 8]
+			if space:
+				if tile != null && tile.get_ref():
+					tiles[x + spaceY * 8] = tile
+					tiles[x + y * 8] = null
+					print(spaceY, ": ", y)
+					$Tween.interpolate_property(tile.get_ref(), 'position', Vector2(x, y) * 32, Vector2(x, spaceY) * 32, 0.3, Tween.TRANS_EXPO, Tween.EASE_OUT)
+					space = false
+					y = spaceY
+					spaceY = -1
+			elif tile == null || !tile.get_ref():
+				space = true
+				if spaceY == -1:
+					spaceY = y
+			y -= 1
+
+	$Tween.start()
+
+func remove_matches():
+	for tile in matches:
+		tile.get_ref().queue_free()
+	matches = []
+
 func calculate_matches():
 	var matches = []
 	var match_num = 1

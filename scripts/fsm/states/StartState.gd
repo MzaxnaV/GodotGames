@@ -9,12 +9,15 @@ func enter(params):
 	board.generate_board()
 	board.position = Vector2(128, 16)
 	$StartScreen.add_child(board)
+	$StartScreen/Menu/MenuBackground/Options/Start.grab_focus()
 
 func exit():
 	$StartScreen.hide()
 	$StartScreen.remove_child(board)
 	return board
 
-func handle_event(event):
-	if event.is_action_released("ui_accept"):
-		get_parent().change_state('play')
+func _on_Start_button_down():
+	get_parent().change_state('play')
+
+func _on_Quit_button_down():
+	get_tree().quit()

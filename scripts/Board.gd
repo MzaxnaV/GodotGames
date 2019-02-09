@@ -29,6 +29,11 @@ func generate_board():
 	for tile in tiles:
 		add_child(tile.get_ref())
 
+func clear_board():
+	for tile in tiles:
+		tile.get_ref().queue_free()
+	tiles = []
+
 func show_highlight():
 	$Highlight.show()
 	$Highlight.modulate = RED

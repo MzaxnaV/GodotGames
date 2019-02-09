@@ -5,15 +5,28 @@ var board = null
 var selected_tile = Vector2(0, 0)
 var highlighted = false
 var allow_swap = false
-var block_input = true
+var block_input = null
+var next_level = false
 
 func enter(params):
 	board = params
+	$Tween.interpolate_property($HUD/PlayHud/LevelIndicator, 'position', Vector2(0, -40), Vector2(0, 108), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.interpolate_property($HUD/PlayHud/LevelIndicator, 'position', Vector2(0, 108), Vector2(0, 288), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 1)
 	add_child(board)
-	block_input = false
+	start_level(1)
 
 func exit():
 	board.queue_free()
+
+func start_level(level):
+	block_input = true
+	$HUD/PlayHud/LevelIndicator/LevelText.text = "Level " + str(level) 
+	$HUD/PlayHud/LevelIndicator/AnimateTime.start()
+	$LevelTimer.wait_time = level * 15
+	if level != 1:
+		board.clear_board()
+		board.generate_board()
+	$Tween.start()
 
 func handle_event(event):
 	if !block_input:
@@ -55,3 +68,12 @@ func handle_event(event):
 				allow_swap = !allow_swap
 			board.show_highlight()
 			block_input = false
+
+func _on_AnimateTime_timeout():
+	block_input = false
+	highlighted = true
+	board.show_highlight()
+	$LevelTimer.start()
+
+func _on_LevelTimer_timeout():
+	get_parent().change_state('game-over')

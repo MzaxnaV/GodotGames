@@ -10,8 +10,6 @@ var block_input = true
 func enter(params):
 	board = params
 	add_child(board)
-	$Tween.interpolate_property(params, 'position', Vector2(128, 16), Vector2(256-16, 16), 1.5, Tween.TRANS_EXPO, Tween.EASE_OUT)
-	$Tween.start()
 	block_input = false
 
 func exit():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://scripts/fsm/states/StartState.gd" type="Script" id=2]
@@ -23,6 +23,13 @@ colors = PoolColorArray( 0, 0, 0, 0.501961 )
 flags = 4
 gradient = SubResource( 1 )
 width = 512
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
@@ -52,12 +59,16 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[sub_resource type="StyleBoxEmpty" id=8]
+[sub_resource type="Gradient" id=8]
 
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+
+flags = 4
+gradient = SubResource( 8 )
+width = 512
 
 [node name="Game" type="Node" index="0"]
 
@@ -99,6 +110,7 @@ __meta__ = {
 
 [node name="Menu" type="Node2D" parent="StartState/StartScreen" index="1"]
 
+editor/display_folded = true
 z_index = 2
 
 [node name="TitleBackground" type="NinePatchRect" parent="StartState/StartScreen/Menu" index="0"]
@@ -153,7 +165,7 @@ scroll_following = false
 selection_enabled = false
 override_selected_font_color = false
 script = ExtResource( 5 )
-_sections_unfolded = [ "BBCode" ]
+_sections_unfolded = [ "BBCode", "Pause" ]
 
 [node name="TitleShadow" type="Label" parent="StartState/StartScreen/Menu/TitleBackground/Title" index="1"]
 
@@ -181,6 +193,13 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Timer" type="Timer" parent="StartState/StartScreen/Menu/TitleBackground/Title" index="2"]
+
+process_mode = 1
+wait_time = 0.25
+one_shot = false
+autostart = true
 
 [node name="MenuBackground" type="NinePatchRect" parent="StartState/StartScreen/Menu" index="1"]
 
@@ -238,10 +257,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0.231628, 0.315499, 0.644531, 1 )
 custom_colors/font_color_hover = Color( 0.378113, 0.488564, 0.921875, 1 )
@@ -296,10 +315,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/normal = SubResource( 6 )
 custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 0.231628, 0.315499, 0.644531, 1 )
 custom_colors/font_color_hover = Color( 0.378113, 0.488564, 0.921875, 1 )
@@ -342,12 +361,7 @@ _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
 script = ExtResource( 7 )
 
-[node name="PlayState" type="Node" parent="." index="2"]
-
-editor/display_folded = true
-script = ExtResource( 8 )
-
-[node name="Tween" type="Tween" parent="PlayState" index="0"]
+[node name="Tween" type="Tween" parent="BeginGameState" index="0"]
 
 repeat = false
 playback_process_mode = 1
@@ -356,6 +370,26 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 _sections_unfolded = [ "playback" ]
+
+[node name="White" type="Sprite" parent="BeginGameState" index="1"]
+
+self_modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 1, 288 )
+z_index = 2
+texture = SubResource( 9 )
+centered = false
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
+
+[node name="Timer" type="Timer" parent="BeginGameState" index="2"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
+
+[node name="PlayState" type="Node" parent="." index="2"]
+
+script = ExtResource( 8 )
 
 [node name="GameOverState" type="Node" parent="." index="3"]
 
@@ -402,8 +436,12 @@ __meta__ = {
 
 script = ExtResource( 12 )
 
+[connection signal="timeout" from="StartState/StartScreen/Menu/TitleBackground/Title/Timer" to="StartState/StartScreen/Menu/TitleBackground/Title" method="_on_Timer_timeout"]
+
 [connection signal="button_down" from="StartState/StartScreen/Menu/MenuBackground/Options/Start" to="StartState" method="_on_Start_button_down"]
 
 [connection signal="button_down" from="StartState/StartScreen/Menu/MenuBackground/Options/Quit" to="StartState" method="_on_Quit_button_down"]
+
+[connection signal="timeout" from="BeginGameState/Timer" to="BeginGameState" method="_on_Timer_timeout"]
 
 

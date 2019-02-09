@@ -17,7 +17,7 @@ func exit():
 	return board
 
 func _on_Start_button_down():
-	get_parent().change_state('play')
+	get_parent().change_state('begin-game')
 
 func _on_Quit_button_down():
 	get_tree().quit()

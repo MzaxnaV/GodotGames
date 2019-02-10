@@ -1,16 +1,14 @@
 extends "res://scripts/fsm/BaseState.gd"
 
 func enter(params):
-	pass
+	$GameOverInfo/Score.text = "Your Score\n" + str(params)
+	$GameOverInfo.show()
+	$GameOverInfoBackground.show()
 
 func exit():
-	pass
-
-func update_physics(delta):
-	pass
-
-func update(delta):
-	pass
+	$GameOverInfo.hide()
+	$GameOverInfoBackground.hide()
 
 func handle_event(event):
-	pass
+	if event.is_action_released("ui_accept"):
+		get_parent().change_state("start")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://scripts/fsm/states/StartState.gd" type="Script" id=2]
@@ -8,10 +8,11 @@
 [ext_resource path="res://fonts/medium_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://scripts/fsm/states/BeginGameState.gd" type="Script" id=7]
 [ext_resource path="res://scripts/fsm/states/PlayState.gd" type="Script" id=8]
-[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=9]
-[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=10]
-[ext_resource path="res://graphics/background.png" type="Texture" id=11]
-[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=9]
+[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=10]
+[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=11]
+[ext_resource path="res://graphics/background.png" type="Texture" id=12]
+[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=13]
 
 [sub_resource type="Gradient" id=1]
 
@@ -73,12 +74,34 @@ width = 512
 [sub_resource type="Gradient" id=10]
 
 offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 0.168915, 0.800781, 0.800781, 0.501961 )
+colors = PoolColorArray( 0.145098, 0.172549, 0.231373, 0.686275 )
 
 [sub_resource type="GradientTexture" id=11]
 
 flags = 4
 gradient = SubResource( 10 )
+width = 170
+
+[sub_resource type="Gradient" id=12]
+
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0.168915, 0.800781, 0.800781, 0.501961 )
+
+[sub_resource type="GradientTexture" id=13]
+
+flags = 4
+gradient = SubResource( 12 )
+width = 512
+
+[sub_resource type="Gradient" id=14]
+
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=15]
+
+flags = 4
+gradient = SubResource( 14 )
 width = 512
 
 [node name="Game" type="Node" index="0"]
@@ -92,7 +115,7 @@ script = ExtResource( 2 )
 
 [node name="StartScreen" type="Control" parent="StartState" index="0"]
 
-editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -372,10 +395,9 @@ _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
 [node name="BeginGameState" type="Node" parent="." index="1"]
 
-editor/display_folded = true
 script = ExtResource( 7 )
 
-[node name="Tween" type="Tween" parent="BeginGameState" index="0"]
+[node name="BeginTween" type="Tween" parent="BeginGameState" index="0"]
 
 repeat = false
 playback_process_mode = 1
@@ -429,33 +451,137 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Margin" ]
 
-[node name="ItemList" type="ItemList" parent="PlayState/HUD/PlayHud" index="0"]
+[node name="InfoBackground" type="Sprite" parent="PlayState/HUD/PlayHud" index="0"]
+
+position = Vector2( 16, 16 )
+scale = Vector2( 1, 100 )
+texture = SubResource( 11 )
+centered = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="Info" type="VBoxContainer" parent="PlayState/HUD/PlayHud" index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 186.0
+margin_bottom = 116.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+_sections_unfolded = [ "Anchor", "Margin", "Visibility", "custom_constants" ]
+
+[node name="Level" type="Label" parent="PlayState/HUD/PlayHud/Info" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 55.0
-margin_top = 54.0
-margin_right = 194.0
-margin_bottom = 220.0
+margin_top = 12.0
+margin_right = 170.0
+margin_bottom = 28.0
 rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = true
-focus_mode = 2
-mouse_filter = 0
+rect_clip_content = false
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
-size_flags_vertical = 1
+size_flags_vertical = 4
 custom_fonts/font = ExtResource( 6 )
-items = [  ]
-select_mode = 0
-allow_reselect = false
-icon_mode = 1
-fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "custom_colors" ]
+text = "Level 9999"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
-[node name="LevelIndicator" type="Node2D" parent="PlayState/HUD/PlayHud" index="1"]
+[node name="Score" type="Label" parent="PlayState/HUD/PlayHud/Info" index="1"]
 
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 32.0
+margin_right = 170.0
+margin_bottom = 48.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Score 999999"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Goal" type="Label" parent="PlayState/HUD/PlayHud/Info" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 52.0
+margin_right = 170.0
+margin_bottom = 68.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Goal 999999"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Timer" type="Label" parent="PlayState/HUD/PlayHud/Info" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 170.0
+margin_bottom = 88.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Timer 999"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 9 )
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="LevelTimer" type="Timer" parent="PlayState/HUD/PlayHud/Info/Timer" index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="LevelIndicator" type="Node2D" parent="PlayState/HUD/PlayHud" index="2"]
+
+editor/display_folded = true
 position = Vector2( 0, -42 )
 _sections_unfolded = [ "Transform" ]
 
@@ -487,7 +613,7 @@ _sections_unfolded = [ "Margin", "custom_fonts" ]
 
 show_behind_parent = true
 scale = Vector2( 1, 42.3865 )
-texture = SubResource( 11 )
+texture = SubResource( 13 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform", "Visibility" ]
 
@@ -498,7 +624,15 @@ wait_time = 2.0
 one_shot = true
 autostart = false
 
-[node name="Tween" type="Tween" parent="PlayState" index="1"]
+[node name="Alpha" type="Sprite" parent="PlayState/HUD" index="1"]
+
+self_modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 1, 289 )
+texture = SubResource( 15 )
+centered = false
+_sections_unfolded = [ "Animation", "Offset", "Transform", "Visibility" ]
+
+[node name="TweenLevel" type="Tween" parent="PlayState" index="1"]
 
 repeat = false
 playback_process_mode = 1
@@ -507,16 +641,122 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="LevelTimer" type="Timer" parent="PlayState" index="2"]
+[node name="TweenAlpha" type="Tween" parent="PlayState" index="2"]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
 
 [node name="GameOverState" type="Node" parent="." index="3"]
 
-script = ExtResource( 9 )
+editor/display_folded = true
+script = ExtResource( 10 )
+
+[node name="GameOverInfoBackground" type="Sprite" parent="GameOverState" index="0"]
+
+visible = false
+position = Vector2( 171.104, 91.7144 )
+scale = Vector2( 1, 160.559 )
+texture = SubResource( 11 )
+centered = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="GameOverInfo" type="VBoxContainer" parent="GameOverState" index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 171.0
+margin_top = 92.0
+margin_right = 341.0
+margin_bottom = 257.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+_sections_unfolded = [ "Anchor", "Margin", "Visibility", "custom_constants" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="GameOverText" type="Label" parent="GameOverState/GameOverInfo" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 19.0
+margin_right = 170.0
+margin_bottom = 86.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 4 )
+text = "Game
+Over"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Score" type="Label" parent="GameOverState/GameOverInfo" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 90.0
+margin_right = 170.0
+margin_bottom = 125.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Your Score
+999999999"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Goal" type="Label" parent="GameOverState/GameOverInfo" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 129.0
+margin_right = 170.0
+margin_bottom = 145.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 6 )
+text = "Press ENTER"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
 
@@ -532,7 +772,7 @@ scroll_base_scale = Vector2( 1, 1 )
 scroll_limit_begin = Vector2( 0, 0 )
 scroll_limit_end = Vector2( 0, 0 )
 scroll_ignore_camera_zoom = true
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
@@ -548,7 +788,7 @@ __meta__ = {
 
 [node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
 
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform" ]
 __meta__ = {
@@ -557,7 +797,7 @@ __meta__ = {
 
 [node name="DEBUG" type="Node2D" parent="." index="5"]
 
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -570,8 +810,8 @@ __meta__ = {
 
 [connection signal="timeout" from="BeginGameState/Timer" to="BeginGameState" method="_on_Timer_timeout"]
 
-[connection signal="timeout" from="PlayState/HUD/PlayHud/LevelIndicator/AnimateTime" to="PlayState" method="_on_AnimateTime_timeout"]
+[connection signal="timeout" from="PlayState/HUD/PlayHud/Info/Timer/LevelTimer" to="PlayState" method="_on_LevelTimer_timeout"]
 
-[connection signal="timeout" from="PlayState/LevelTimer" to="PlayState" method="_on_LevelTimer_timeout"]
+[connection signal="timeout" from="PlayState/HUD/PlayHud/LevelIndicator/AnimateTime" to="PlayState" method="_on_AnimateTime_timeout"]
 
 

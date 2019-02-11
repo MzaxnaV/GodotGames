@@ -1,0 +1,303 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Paddle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Graphics/breakout.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Hearts.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Graphics/hearts.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Fonts/small_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Assets/Fonts/large_font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/Fonts/medium_font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Assets/Graphics/Particle.tres" type="Material" id=10]
+[ext_resource path="res://Assets/Graphics/particle.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Explosion.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Sounds/paddle_hit.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sounds/brick-hit-1.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Sounds/brick-hit-2.wav" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sounds/wall_hit.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/hurt.wav" type="AudioStream" id=17]
+[ext_resource path="res://Assets/Sounds/recover.wav" type="AudioStream" id=18]
+
+[node name="Level" type="Node" index="0"]
+
+pause_mode = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="Paddle" parent="." index="0" instance=ExtResource( 2 )]
+
+[node name="ball" type="Sprite" parent="Paddle" index="2"]
+
+position = Vector2( 0, -12 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 96, 48, 8, 8 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Ball" parent="." index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 50, 180 )
+_sections_unfolded = [ "Audio Bus", "Collision", "Transform" ]
+
+[node name="BricksContainer" type="Node" parent="." index="2"]
+
+[node name="HUD" type="CanvasLayer" parent="." index="3"]
+
+editor/display_folded = true
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="LevelScreen" type="Control" parent="HUD" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 432.0
+margin_bottom = 243.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Grow Direction" ]
+
+[node name="Hearts" type="Node" parent="HUD/LevelScreen" index="0"]
+
+script = ExtResource( 5 )
+
+[node name="Heart1" type="Sprite" parent="HUD/LevelScreen/Hearts" index="0"]
+
+position = Vector2( 340, 8 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10, 9 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Heart2" type="Sprite" parent="HUD/LevelScreen/Hearts" index="1"]
+
+position = Vector2( 351, 8 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10, 9 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Heart3" type="Sprite" parent="HUD/LevelScreen/Hearts" index="2"]
+
+position = Vector2( 362, 8 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 10, 9 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Score" type="Label" parent="HUD/LevelScreen" index="1"]
+
+editor/display_folded = true
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -43.0
+margin_top = 2.0
+margin_right = -3.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 2
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ScoreText" type="Label" parent="HUD/LevelScreen/Score" index="0"]
+
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -55.0
+margin_top = -1.0
+margin_bottom = 13.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 7 )
+text = "Score: "
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin", "custom_fonts" ]
+
+[node name="LevelText" type="Label" parent="HUD/LevelScreen" index="2"]
+
+editor/display_folded = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -16.0
+margin_right = 90.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "Level 01"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ServeText" type="Label" parent="HUD/LevelScreen/LevelText" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -93.0
+margin_top = 25.0
+margin_right = 93.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 9 )
+text = "Press Enter to serve!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="VictoryText" type="Label" parent="HUD/LevelScreen" index="3"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -170.0
+margin_top = -55.5
+margin_right = 170.0
+margin_bottom = -23.5
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "Level 9999 complete"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Explosion" type="Particles2D" parent="HUD" index="1"]
+
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = ExtResource( 10 )
+texture = ExtResource( 11 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+script = ExtResource( 12 )
+_sections_unfolded = [ "Process Material" ]
+
+[node name="PaddleHitSound" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 13 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BrickHit1Sound" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 14 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BrickHit2Sound" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 15 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="WallHitSound" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 16 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 17 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="RecoverSound" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 18 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[connection signal="area_entered" from="Paddle" to="." method="_on_Paddle_area_entered"]
+
+

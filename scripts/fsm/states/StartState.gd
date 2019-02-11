@@ -21,3 +21,9 @@ func _on_Start_button_down():
 
 func _on_Quit_button_down():
 	get_tree().quit()
+
+func _on_Start_focus_entered():
+	$SelectSound.play()
+
+func _on_Quit_focus_entered():
+	$SelectSound.play()

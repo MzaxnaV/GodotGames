@@ -1,6 +1,7 @@
 extends "res://scripts/fsm/BaseState.gd"
 
 func enter(params):
+	$GameOverSound.play()
 	$GameOverInfo/Score.text = "Your Score\n" + str(params)
 	$GameOverInfo.show()
 	$GameOverInfoBackground.show()

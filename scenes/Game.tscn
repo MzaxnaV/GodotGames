@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/fsm/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://scripts/fsm/states/StartState.gd" type="Script" id=2]
@@ -6,13 +6,18 @@
 [ext_resource path="res://fonts/large_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scripts/Title.gd" type="Script" id=5]
 [ext_resource path="res://fonts/medium_font.tres" type="DynamicFont" id=6]
-[ext_resource path="res://scripts/fsm/states/BeginGameState.gd" type="Script" id=7]
-[ext_resource path="res://scripts/fsm/states/PlayState.gd" type="Script" id=8]
-[ext_resource path="res://scenes/Timer.gd" type="Script" id=9]
-[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=10]
-[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=11]
-[ext_resource path="res://graphics/background.png" type="Texture" id=12]
-[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=13]
+[ext_resource path="res://sounds/select.wav" type="AudioStream" id=7]
+[ext_resource path="res://scripts/fsm/states/BeginGameState.gd" type="Script" id=8]
+[ext_resource path="res://scripts/fsm/states/PlayState.gd" type="Script" id=9]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=10]
+[ext_resource path="res://sounds/match.wav" type="AudioStream" id=11]
+[ext_resource path="res://sounds/next-level.wav" type="AudioStream" id=12]
+[ext_resource path="res://sounds/error.wav" type="AudioStream" id=13]
+[ext_resource path="res://scripts/fsm/states/GameOverState.gd" type="Script" id=14]
+[ext_resource path="res://sounds/game-over.wav" type="AudioStream" id=15]
+[ext_resource path="res://scripts/ParallaxBackground.gd" type="Script" id=16]
+[ext_resource path="res://graphics/background.png" type="Texture" id=17]
+[ext_resource path="res://scripts/tools/BOUNDARY.gd" type="Script" id=18]
 
 [sub_resource type="Gradient" id=1]
 
@@ -104,8 +109,9 @@ flags = 4
 gradient = SubResource( 14 )
 width = 512
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
+editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="StartState" type="Node" parent="." index="0"]
@@ -146,7 +152,6 @@ __meta__ = {
 
 [node name="Menu" type="Node2D" parent="StartState/StartScreen" index="1"]
 
-editor/display_folded = true
 z_index = 2
 
 [node name="TitleBackground" type="NinePatchRect" parent="StartState/StartScreen/Menu" index="0"]
@@ -393,9 +398,18 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
 
+[node name="SelectSound" type="AudioStreamPlayer" parent="StartState" index="1"]
+
+stream = ExtResource( 7 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [node name="BeginGameState" type="Node" parent="." index="1"]
 
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="BeginTween" type="Tween" parent="BeginGameState" index="0"]
 
@@ -425,7 +439,7 @@ autostart = false
 
 [node name="PlayState" type="Node" parent="." index="2"]
 
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="HUD" type="CanvasLayer" parent="PlayState" index="0"]
 
@@ -569,7 +583,7 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "custom_fonts" ]
 
 [node name="LevelTimer" type="Timer" parent="PlayState/HUD/PlayHud/Info/Timer" index="0"]
@@ -650,10 +664,36 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
+[node name="MatchSound" type="AudioStreamPlayer" parent="PlayState" index="3"]
+
+stream = ExtResource( 11 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="VictorySound" type="AudioStreamPlayer" parent="PlayState" index="4"]
+
+stream = ExtResource( 12 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="ErrorSound" type="AudioStreamPlayer" parent="PlayState" index="5"]
+
+stream = ExtResource( 13 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [node name="GameOverState" type="Node" parent="." index="3"]
 
-editor/display_folded = true
-script = ExtResource( 10 )
+script = ExtResource( 14 )
 
 [node name="GameOverInfoBackground" type="Sprite" parent="GameOverState" index="0"]
 
@@ -758,6 +798,15 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="GameOverSound" type="AudioStreamPlayer" parent="GameOverState" index="2"]
+
+stream = ExtResource( 15 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." index="4"]
 
 editor/display_folded = true
@@ -772,7 +821,7 @@ scroll_base_scale = Vector2( 1, 1 )
 scroll_limit_begin = Vector2( 0, 0 )
 scroll_limit_end = Vector2( 0, 0 )
 scroll_ignore_camera_zoom = true
-script = ExtResource( 11 )
+script = ExtResource( 16 )
 _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
@@ -788,7 +837,7 @@ __meta__ = {
 
 [node name="background" type="Sprite" parent="ParallaxBackground/ParallaxLayer" index="0"]
 
-texture = ExtResource( 12 )
+texture = ExtResource( 17 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform" ]
 __meta__ = {
@@ -797,7 +846,7 @@ __meta__ = {
 
 [node name="DEBUG" type="Node2D" parent="." index="5"]
 
-script = ExtResource( 13 )
+script = ExtResource( 18 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -806,7 +855,11 @@ __meta__ = {
 
 [connection signal="button_down" from="StartState/StartScreen/Menu/MenuBackground/Options/Start" to="StartState" method="_on_Start_button_down"]
 
+[connection signal="focus_entered" from="StartState/StartScreen/Menu/MenuBackground/Options/Start" to="StartState" method="_on_Start_focus_entered"]
+
 [connection signal="button_down" from="StartState/StartScreen/Menu/MenuBackground/Options/Quit" to="StartState" method="_on_Quit_button_down"]
+
+[connection signal="focus_entered" from="StartState/StartScreen/Menu/MenuBackground/Options/Quit" to="StartState" method="_on_Quit_focus_entered"]
 
 [connection signal="timeout" from="BeginGameState/Timer" to="BeginGameState" method="_on_Timer_timeout"]
 

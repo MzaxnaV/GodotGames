@@ -55,13 +55,17 @@ func select(pos):
 func deselect():
 	$Select.hide()
 
-func get_selected():
+func get_highlighted():
 	return $Highlight.position / 32
 
+func get_selected():
+	return $Select.position / 32
+
 func swap(pos):
-	deselect()
 	var pos1 = $Highlight.position
 	var pos2 = $Select.position
+	deselect()
+
 	var temp = tiles[pos1.x/32 + 8*pos1.y/32]
 
 	# swap objects indices

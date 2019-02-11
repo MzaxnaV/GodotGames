@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/Label.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ViewportContainer.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Game.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sounds/music3.ogg" type="AudioStream" id=4]
+
+[node name="Main" type="Node" index="0"]
+
+[node name="DEBUG_HUD" type="CanvasLayer" parent="." index="0"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Label" type="Label" parent="DEBUG_HUD" index="0"]
+
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_top = -14.0
+margin_right = 46.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "FPS: 60"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Anchor", "Grow Direction", "custom_colors" ]
+
+[node name="ViewportContainer" type="ViewportContainer" parent="." index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch = true
+stretch_shrink = 1
+script = ExtResource( 2 )
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="GameViewport" type="Viewport" parent="ViewportContainer" index="0"]
+
+arvr = false
+size = Vector2( 1280, 720 )
+own_world = false
+world = null
+transparent_bg = false
+msaa = 0
+hdr = true
+disable_3d = false
+usage = 2
+debug_draw = 0
+render_target_v_flip = false
+render_target_clear_mode = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = false
+audio_listener_enable_3d = false
+physics_object_picking = false
+gui_disable_input = false
+gui_snap_controls_to_pixels = true
+shadow_atlas_size = 0
+shadow_atlas_quad_0 = 2
+shadow_atlas_quad_1 = 2
+shadow_atlas_quad_2 = 3
+shadow_atlas_quad_3 = 4
+
+[node name="Game" parent="ViewportContainer/GameViewport" index="0" instance=ExtResource( 3 )]
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="2"]
+
+stream = ExtResource( 4 )
+volume_db = -30.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+
+

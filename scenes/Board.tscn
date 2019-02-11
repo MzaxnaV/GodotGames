@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Board.gd" type="Script" id=1]
+[ext_resource path="res://graphics/select.png" type="Texture" id=2]
+[ext_resource path="res://graphics/highlight.png" type="Texture" id=3]
+
+[node name="Board" type="Node2D"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Tween" type="Tween" parent="." index="0"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Select" type="Node2D" parent="." index="1"]
+
+editor/display_folded = true
+visible = false
+z_index = 1
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="texture" type="NinePatchRect" parent="Select" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+_sections_unfolded = [ "Anchor", "Patch Margin", "Visibility" ]
+
+[node name="Highlight" type="Sprite" parent="." index="2"]
+
+visible = false
+z_index = 1
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( -2, -2 )
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
+
+

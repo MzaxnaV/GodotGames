@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://MainGame.gd" type="Script" id=1]
+[ext_resource path="res://boundary.png" type="Texture" id=2]
+[ext_resource path="res://Paddle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sounds/paddle_hit.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/wall_hit.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/score.wav" type="AudioStream" id=7]
+[ext_resource path="res://ExitAreaLeft.tscn" type="PackedScene" id=8]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=9]
+
+[node name="MainGame" type="Node" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="Boundary" type="Sprite" parent="." index="0"]
+
+position = Vector2( 512, 300 )
+scale = Vector2( 0.05, 0.7 )
+texture = ExtResource( 2 )
+
+[node name="RightPaddle" parent="." index="1" instance=ExtResource( 3 )]
+
+position = Vector2( 50, 300 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="LeftPaddle" parent="." index="2" instance=ExtResource( 3 )]
+
+position = Vector2( 974, 300 )
+
+[node name="Ball" parent="." index="3" instance=ExtResource( 4 )]
+
+editor/display_folded = true
+position = Vector2( 512, 300 )
+_sections_unfolded = [ "Pause", "Transform" ]
+
+[node name="PaddleHit" type="AudioStreamPlayer2D" parent="Ball" index="0"]
+
+position = Vector2( -512, -300 )
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="WallHit" type="AudioStreamPlayer2D" parent="Ball" index="3"]
+
+position = Vector2( -512, -300 )
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="Score" type="AudioStreamPlayer2D" parent="Ball" index="4"]
+
+position = Vector2( -512, -300 )
+stream = ExtResource( 7 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[node name="ExitAreaLeft" parent="." index="4" instance=ExtResource( 8 )]
+
+[node name="ExitAreaRight" parent="." index="5" instance=ExtResource( 8 )]
+
+position = Vector2( 1034, 300 )
+
+[node name="HUD" parent="." index="6" instance=ExtResource( 9 )]
+
+[connection signal="update_score" from="Ball" to="HUD" method="_on_Ball_update_score"]
+
+[connection signal="body_entered" from="ExitAreaLeft" to="Ball" method="_on_ExitAreaLeft_body_entered"]
+
+[connection signal="body_entered" from="ExitAreaRight" to="Ball" method="_on_ExitAreaRight_body_entered"]
+
+[connection signal="game_over" from="HUD" to="." method="_on_HUD_game_over"]
+
+

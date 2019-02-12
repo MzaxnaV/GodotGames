@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/paddle_hit.wav-896e383c9f2853ec8c48e2332e246a1f.sample"
+
+[deps]
+
+source_file="res://sounds/paddle_hit.wav"
+dest_files=[ "res://.import/paddle_hit.wav-896e383c9f2853ec8c48e2332e246a1f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

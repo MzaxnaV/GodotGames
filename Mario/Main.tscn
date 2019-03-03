@@ -20,6 +20,9 @@ size_flags_vertical = 1
 stretch = true
 stretch_shrink = 1
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer" index="0"]
 

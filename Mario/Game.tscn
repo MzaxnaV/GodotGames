@@ -2,9 +2,9 @@
 
 [ext_resource path="res://my_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://TileMap.gd" type="Script" id=2]
-[ext_resource path="res://ScrollCamera2D.gd" type="Script" id=3]
-[ext_resource path="res://BOUNDARY.gd" type="Script" id=4]
-[ext_resource path="res://character.png" type="Texture" id=5]
+[ext_resource path="res://BOUNDARY.gd" type="Script" id=3]
+[ext_resource path="res://character.png" type="Texture" id=4]
+[ext_resource path="res://Sprite.gd" type="Script" id=5]
 
 [node name="Game" type="Node" index="0"]
 
@@ -33,8 +33,26 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Camera2D" type="Camera2D" parent="." index="1"]
+[node name="DEBUG" type="Node2D" parent="." index="1"]
 
+script = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="." index="2"]
+
+position = Vector2( 128, 70 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 20 )
+script = ExtResource( 5 )
+_sections_unfolded = [ "Region", "Transform" ]
+
+[node name="Camera" type="Camera2D" parent="Sprite" index="0"]
+
+position = Vector2( -125, -70 )
 anchor_mode = 0
 rotating = false
 current = true
@@ -57,22 +75,6 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 3 )
-
-[node name="DEBUG" type="Node2D" parent="." index="2"]
-
-script = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="." index="3"]
-
-position = Vector2( 125, 70 )
-texture = ExtResource( 5 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 16, 20 )
-_sections_unfolded = [ "Region", "Transform" ]
 
 

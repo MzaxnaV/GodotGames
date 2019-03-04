@@ -3,7 +3,7 @@
 [ext_resource path="res://Viewport.gd" type="Script" id=1]
 [ext_resource path="res://Game.tscn" type="PackedScene" id=2]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="." index="0"]
 

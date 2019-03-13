@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://my_tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://TileMap.gd" type="Script" id=2]
-[ext_resource path="res://BOUNDARY.gd" type="Script" id=3]
-[ext_resource path="res://character.png" type="Texture" id=4]
-[ext_resource path="res://Sprite.gd" type="Script" id=5]
-[ext_resource path="res://climb_animation.tres" type="Animation" id=6]
-[ext_resource path="res://jump_animation.tres" type="Animation" id=7]
-[ext_resource path="res://walk_animation.tres" type="Animation" id=8]
+[ext_resource path="res://ground_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Dirt.gd" type="Script" id=2]
+[ext_resource path="res://flora_tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://Flora.gd" type="Script" id=4]
+[ext_resource path="res://BOUNDARY.gd" type="Script" id=5]
+[ext_resource path="res://character.png" type="Texture" id=6]
+[ext_resource path="res://Sprite.gd" type="Script" id=7]
+[ext_resource path="res://climb_animation.tres" type="Animation" id=8]
+[ext_resource path="res://jump_animation.tres" type="Animation" id=9]
+[ext_resource path="res://walk_animation.tres" type="Animation" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -30,7 +32,7 @@ tracks/0/keys = {
 
 [node name="Game" type="Node" index="0"]
 
-[node name="TileMap" type="TileMap" parent="." index="0"]
+[node name="Dirt" type="TileMap" parent="." index="0"]
 
 mode = 0
 tile_set = ExtResource( 1 )
@@ -48,28 +50,53 @@ collision_layer = 1
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0 )
+tile_data = PoolIntArray(  )
 script = ExtResource( 2 )
-_sections_unfolded = [ "Cell", "Transform", "Visibility" ]
+_sections_unfolded = [ "Cell", "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="DEBUG" type="Node2D" parent="." index="1"]
+[node name="Flora" type="TileMap" parent="." index="1"]
 
-script = ExtResource( 3 )
+mode = 0
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray(  )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Cell", "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DEBUG" type="Node2D" parent="." index="2"]
+
+script = ExtResource( 5 )
 _sections_unfolded = [ "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Sprite" type="Sprite" parent="." index="2"]
+[node name="Sprite" type="Sprite" parent="." index="3"]
 
 position = Vector2( 128, 70 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 hframes = 11
 region_rect = Rect2( 0, 0, 16, 20 )
-script = ExtResource( 5 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 [node name="Camera" type="Camera2D" parent="Sprite" index="0"]
@@ -106,10 +133,10 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/climb = ExtResource( 6 )
+anims/climb = ExtResource( 8 )
 anims/idle = SubResource( 1 )
-anims/jump = ExtResource( 7 )
-anims/walk = ExtResource( 8 )
+anims/jump = ExtResource( 9 )
+anims/walk = ExtResource( 10 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 

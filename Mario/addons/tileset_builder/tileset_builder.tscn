@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/tileset_builder/tileset_builder.gd" type="Script" id=1]
+[ext_resource path="res://tile_tops.png" type="Texture" id=2]
+
+[node name="tileset_builder" type="Button" index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -51.0
+margin_top = -10.0
+margin_right = 51.0
+margin_bottom = 10.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "GenerateTIles"
+flat = false
+align = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+tileset_texture = ExtResource( 2 )
+offset = Vector2( 0, 0 )
+skip_cells = Vector2( 4, 3 )
+tile_size = Vector2( 16, 16 )
+boundary = Vector2( 6, 18 )
+
+[connection signal="pressed" from="." to="." method="_on_tileset_builder_pressed"]
+
+
